@@ -1,0 +1,14 @@
+[project]
+name = "quarto-gradio"
+version = "0.1.0"
+description = "Python environment to ease the development of Quarto Gradio extension"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = []
+
+[dependency-groups]
+dev = [
+    "gradio>=5.17.0",
+    "jupyter>=1.1.1",
+    "plotly>=5.24.1",
+]

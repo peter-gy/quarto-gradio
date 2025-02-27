@@ -1,0 +1,79 @@
+---
+title: "Quarto x Gradio Lite"
+
+format:
+  html:
+    page-layout: full
+    code-fold: true
+
+filters:
+  - gradio
+
+gradio:
+  attributes:
+    theme: light
+---
+
+## Hello World
+
+```{python}
+import gradio as gr
+
+def greet(name):
+    return "Hello " + name + "!"
+
+demo = gr.Interface(
+    fn=greet, 
+    inputs="textbox", 
+    outputs="textbox", 
+    live=True,
+    allow_flagging="never",
+)
+
+demo.launch()
+```
+
+## Interactive Playground
+
+```{python}
+#| gr-playground: true
+#| gr-layout: horizontal
+
+from difflib import Differ
+
+import gradio as gr
+
+def diff_texts(text1, text2):
+    d = Differ()
+    return [
+        (token[2:], token[0] if token[0] != " " else None)
+        for token in d.compare(text1, text2)
+    ]
+
+demo = gr.Interface(
+    diff_texts,
+    [
+        gr.Textbox(
+            label="Text 1",
+            info="Initial text",
+            lines=3,
+            value="The quick brown fox jumped over the lazy dogs.",
+        ),
+        gr.Textbox(
+            label="Text 2",
+            info="Text to compare",
+            lines=3,
+            value="The fast brown fox jumps over lazy dogs.",
+        ),
+    ],
+    gr.HighlightedText(
+        label="Diff",
+        combine_adjacent=True,
+        show_legend=True,
+        color_map={"+": "red", "-": "green"}),
+    live=True,
+    allow_flagging="never",
+)
+
+demo.launch()
+```

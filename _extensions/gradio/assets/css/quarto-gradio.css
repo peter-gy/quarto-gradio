@@ -1,0 +1,24 @@
+/*
+ * There is a collision between Gradio Lite's `column` class and Bootstrap's `column` class.
+ * Without this, all Gradio columns will be 50% wide only.
+ */
+gradio-lite div.column {
+  width: unset !important;
+}
+
+/* Display border around app while in the loading state */
+gradio-lite div.translucent {
+  border: 1px solid var(--quarto-border-color);
+}
+
+/* Hide footer in Gradio Lite */
+gradio-lite footer {
+  display: none !important;
+}
+
+/* Use Quarto's body background color for Gradio Lite */
+gradio-lite,
+gradio-lite .api-docs-wrap,
+gradio-lite .preview {
+  background: var(--quarto-body-bg) !important;
+}
