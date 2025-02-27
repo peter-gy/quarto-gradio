@@ -28,7 +28,7 @@ This extension was designed to work both with documents written in **Q**uarto **
 
 ````md
 ---
-title: "Quarto x Gradio Lite"
+title: "Quarto 🔹🔸 Gradio Lite"
 
 filters:
   - gradio
@@ -51,7 +51,7 @@ gr.Interface(fn=greet, inputs="textbox", outputs="textbox", live=True).launch()
 
 ````md
 ---
-title: "Quarto x Gradio Lite"
+title: "Quarto 🔹🔸 Gradio Lite"
 
 filters:
   - gradio
