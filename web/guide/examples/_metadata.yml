@@ -1,0 +1,4 @@
+sidebar: false
+include-after-body:
+  - text: |
+      <style>.nav-footer {display: none;}</style>

@@ -1,0 +1,32 @@
+---
+title: "Sentiment Analysis"
+gradio:
+  requirements:
+    - transformers-js-py
+  attributes:
+    playground: true
+    layout: "horizontal"
+---
+
+```{python}
+import gradio as gr
+from transformers_js_py import pipeline
+
+pipe = await pipeline("sentiment-analysis")
+
+
+async def process(text):
+    return await pipe(text)
+
+
+demo = gr.Interface(
+    fn=process,
+    inputs=gr.Textbox(value="Gradio is even cooler when it's in Quarto!"),
+    outputs="json",
+    flagging_mode="never",
+)
+
+if __name__ == "__main__":
+    demo.launch()
+```
+

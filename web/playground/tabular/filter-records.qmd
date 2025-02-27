@@ -1,0 +1,42 @@
+---
+title: "Filter Records"
+---
+
+```{python}
+import gradio as gr
+import pandas as pd
+
+# Create sample data
+sample_data = pd.DataFrame([
+    ["John", 25, "M"],
+    ["Sarah", 30, "F"], 
+    ["Alex", 35, "O"],
+    ["Emma", 28, "F"],
+    ["Michael", 42, "M"]
+], columns=["name", "age", "gender"])
+
+def filter_records(records, gender):
+    return records[records["gender"] == gender]
+
+
+demo = gr.Interface(
+    filter_records,
+    [
+        gr.Dataframe(
+            headers=["name", "age", "gender"],
+            datatype=["str", "number", "str"],
+            value=sample_data.values.tolist(),
+            row_count=5,
+            col_count=(3, "fixed"),
+            interactive=True
+        ),
+        gr.Dropdown(["M", "F", "O"], value="M"),
+    ],
+    "dataframe",
+    description="Enter gender as 'M', 'F', or 'O' for other.",
+    flagging_mode="never",
+)
+
+if __name__ == "__main__":
+    demo.launch()
+```

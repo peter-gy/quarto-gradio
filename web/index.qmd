@@ -1,12 +1,13 @@
 ---
-title: Guide
+title: Overview
 ---
 
 This website is meant to provide a hands-on guide to making the most out of integrating [![quarto-logo](public/quarto-logo.png){width=24} Quarto](https://quarto.org){target=_blank} and [![gradio-logo](public/gradio-logo.png){width=24} Gradio Lite](https://www.gradio.app/guides/gradio-lite){target=_blank} for embedding interactive Python applications into your HTML documents. If these docs do not answer all of your questions, please don't hesitate to [start a new discussion](https://github.com/peter-gy/quarto-gradio/discussions){target=_blank} on the GitHub repository.
 
+Please keep in mind that the guides focus specifically on usage and customization of the `quarto-gradio` extension. While efforts are made to articulate the interplay of components as clearly as possible, familiarity with Quarto, Python, Gradio and - to a certain extent - [![pyodide-logo](public/pyodide-logo.png){width=24} Pyodide](https://github.com/pyodide/pyodide){target=_blank} will make it easier to follow the examples.
 
 ::: {.callout-tip}
-Please keep in mind that the guides focus specifically on usage and customization of the `quarto-gradio` extension. While efforts are made to keep things as simple as possible, familiarity with Quarto, Python, Gradio and - to a certain extent - [![pyodide-logo](public/pyodide-logo.png){width=24} Pyodide](https://github.com/pyodide/pyodide){target=_blank} will definitely not hurt.
+In case you are interested in the extension's internals and technical details covering each of the components at play, you can get an overview in the [Reference](/docs/reference/) section.
 :::
 
 If you prefer to familiarize yourself with the Gradio API in an online environment, you can head over to the [🛝 Playground](/docs/playground/), otherwise feel free to [🚀 Get Started](/docs/guide/get-started/) with the basics of the extension.

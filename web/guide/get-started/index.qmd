@@ -1,0 +1,25 @@
+---
+title: "🚀 Get Started"
+---
+
+## Installation
+
+First things first, make sure you have the `quarto-gradio` extension installed:
+
+```bash
+quarto add peter-gy/quarto-gradio
+```
+
+Ans also ensure that you have an active Python environment with `gradio` installed:
+
+```bash
+pip install gradio
+```
+
+## Hello World
+
+```` md
+{{< include ../examples/hello-world.qmd >}}
+````
+
+<iframe src="/guide/examples/hello-world.html" width="100%" height="400px"></iframe>

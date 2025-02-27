@@ -8,8 +8,14 @@ img.navbar-logo {
   }
 }
 
-.navbar .bi-github {
-  font-size: 1.4em;
+img.sidebar-logo {
+  margin-bottom: 1em;
+}
+
+.bi-github,
+.bi-globe,
+.bi-linkedin {
+  font-size: 1.5em;
 }
 
 .quarto-navbar-tools {
@@ -17,5 +23,9 @@ img.navbar-logo {
 }
 
 .sidebar-item-container {
-  margin: 1rem 0;
+  margin: 0.75rem 0;
+}
+
+nav.quarto-page-breadcrumbs {
+  margin-bottom: 1em;
 }

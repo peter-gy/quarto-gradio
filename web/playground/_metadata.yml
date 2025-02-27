@@ -1,0 +1,15 @@
+subtitle: Adapted from [Gradio Playground](https://gradio.app/playground/){target=_blank}.
+
+include-in-header:
+  text: |
+    <style>
+      .subtitle.lead {
+        margin-top: .5rem;
+        font-size: 1rem;
+      }
+    </style>
+
+gradio:
+  attributes:
+    playground: true
+    layout: "horizontal"

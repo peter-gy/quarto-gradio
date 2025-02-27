@@ -1,0 +1,38 @@
+---
+title: "Sepia Filter"
+---
+
+```{python}
+import numpy as np
+import gradio as gr
+from sklearn.datasets import load_sample_images
+
+# Get started with a sample image
+sample_image = load_sample_images().images[0]
+
+def sepia(input_img):
+    sepia_filter = np.array([
+        [0.393, 0.769, 0.189],
+        [0.349, 0.686, 0.168],
+        [0.272, 0.534, 0.131]
+    ])
+    sepia_img = input_img.dot(sepia_filter.T)
+    sepia_img /= sepia_img.max()
+    return sepia_img
+
+
+
+
+demo = gr.Interface(
+    sepia,
+    gr.Image(
+        value=sample_image,
+        label="Input Image",
+    ),
+    gr.Image(label="Sepia Output"),
+    flagging_mode="never",
+)
+
+if __name__ == "__main__":
+    demo.launch()
+```

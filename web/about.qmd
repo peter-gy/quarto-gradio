@@ -1,4 +1,0 @@
----
-title: "How does this extension work?"
----
-
