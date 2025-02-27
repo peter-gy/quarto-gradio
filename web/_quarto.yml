@@ -4,8 +4,8 @@ project:
 
 website:
   title: "Quarto x Gradio"
-  #image: "quarto-dark-bg.jpeg"
-  #favicon: "favicon.png"
+  image: "quarto-gradio-bg.png"
+  favicon: "favicon.png"
   open-graph: true
   twitter-card: true
   site-url: https://quarto-gradio.peter.gy
@@ -18,9 +18,8 @@ website:
     show-item-context: true
     type: overlay
   navbar:
-    background: light
-    #logo: quarto.png
-    #logo-alt: "Quarto logo."
+    logo: quarto-gradio.png
+    logo-alt: "Quarto x Gradio logo."
     title: false
     collapse-below: lg
     left:
