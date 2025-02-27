@@ -3,13 +3,12 @@ project:
   output-dir: _site
 
 website:
-  title: "Gradio for Quarto"
+  title: "Quarto x Gradio"
   #image: "quarto-dark-bg.jpeg"
   #favicon: "favicon.png"
-  #google-analytics: "G-FV9Z7SDZ0M"
   open-graph: true
   twitter-card: true
-  site-url: https://gh.peter.gy/quarto-gradio
+  site-url: https://quarto-gradio.peter.gy
   repo-url: https://github.com/peter-gy/quarto-gradio
   issue-url: https://github.com/peter-gy/quarto-gradio/issues/new/choose
   repo-actions: [edit, issue]
@@ -57,6 +56,9 @@ format:
     code-overflow: wrap
     theme: darkly
     toc: true
+    include-in-header:
+      - text: |
+          <script defer src="https://umami.peter.gy/script.js" data-website-id="6da82a32-91fa-4705-9038-888abf4cdcd8"></script>
 
 filters:
   - gradio
