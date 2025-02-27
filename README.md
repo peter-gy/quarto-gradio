@@ -34,6 +34,8 @@ gr.Interface(fn=greet, inputs="textbox", outputs="textbox", live=True).launch()
 ```
 ````
 
+![min-example-preview](https://github.com/user-attachments/assets/c9969de0-c794-41a9-8ba0-8f17c70d7993)
+
 ## Example
 
 Here is the source code of a minimal example: [example.qmd](example.qmd).
