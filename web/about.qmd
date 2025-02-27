@@ -1,4 +1,4 @@
 ---
-title: "About"
+title: "How does this extension work?"
 ---
 

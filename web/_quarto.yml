@@ -3,7 +3,7 @@ project:
   output-dir: _site
 
 website:
-  title: Quarto 🔹🔸 Gradio
+  title: "Quarto 🔹🔸 Gradio"
   image: public/quarto-gradio-bg.png
   favicon: public/favicon.png
   open-graph: true
@@ -14,32 +14,32 @@ website:
   repo-actions: [edit, issue]
   page-navigation: true
   bread-crumbs: true
+
   search:
     show-item-context: true
     type: overlay
+
   navbar:
     logo: public/quarto-gradio.png
-    logo-alt: Quarto-Gradio logo.
+    logo-alt: "Quarto-Gradio logo"
     title: false
-    collapse-below: lg
-    left:
-      - text: "Overview"
-        href: index.qmd
-      - text: "Get Started"
-        href: docs/get-started/index.qmd
+    collapse-below: sm
+    left:      
       - text: "Guide"
-        href: docs/guide/index.qmd
-      - text: Playground
+        href: index.qmd
+      
+      - text: "Playground"
         href: docs/playground/index.qmd
-      - text: "Reference"
-        href: docs/reference/index.qmd
+      
       - text: "About"
         href: about.qmd
+      
       - text: "Help"
         menu:
           - text: "Report a Bug"
             icon: "bug"
             href: "https://github.com/peter-gy/quarto-gradio/issues"
+          
           - text: "Ask a Question"
             icon: "chat-right-text"
             href: "https://github.com/peter-gy/quarto-gradio/discussions"
@@ -48,16 +48,46 @@ website:
         href: https://github.com/peter-gy/quarto-gradio
         text: GitHub Repository
 
+  sidebar:
+    style: docked
+    search: false
+    contents:
+      - text: "🚀 Get Started"
+        href: docs/guide/get-started/index.qmd
+
+      - text: "🛝 Enable Coding Playground"
+        href: docs/guide/enable-coding-playground/index.qmd
+      
+      - text: "📦 Customize Python Modules"
+        href: docs/guide/customize-python-modules/index.qmd
+      
+      - text: "🎨 Customize Styles"
+        href: docs/guide/customize-styles/index.qmd
+      
+      - text: "📚 Define Multiple Apps"
+        href: docs/guide/define-multiple-apps/index.qmd
+
+      - text: "💡 Use with Reveal.js"
+        href: docs/guide/use-with-revealjs/index.qmd
+      
+      - text: "📓 Use with Jupyter"
+        href: docs/guide/use-with-jupyter/index.qmd
+
 format:
   html:
+    toc: true
     code-copy: true
     code-fold: true
     code-overflow: wrap
     theme: darkly
-    toc: true
+    css: styles.css
     include-in-header:
       - text: |
           <script defer src="https://umami.peter.gy/script.js" data-website-id="6da82a32-91fa-4705-9038-888abf4cdcd8"></script>
+    grid:
+      sidebar-width: 300px
+      body-width: 950px
+      margin-width: 200px
 
 filters:
   - gradio

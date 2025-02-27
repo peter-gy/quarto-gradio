@@ -1,0 +1,21 @@
+img.navbar-logo {
+  max-height: 36px;
+}
+
+@media screen and (max-width: 576px) {
+  img.navbar-logo {
+    content: url("public/quarto-gradio-logo.png");
+  }
+}
+
+.navbar .bi-github {
+  font-size: 1.4em;
+}
+
+.quarto-navbar-tools {
+  margin-left: 0.2em;
+}
+
+.sidebar-item-container {
+  margin: 1rem 0;
+}
