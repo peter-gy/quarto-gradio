@@ -1,0 +1,64 @@
+project:
+  type: website
+  output-dir: _site
+
+website:
+  title: "Gradio for Quarto"
+  #image: "quarto-dark-bg.jpeg"
+  #favicon: "favicon.png"
+  #google-analytics: "G-FV9Z7SDZ0M"
+  open-graph: true
+  twitter-card: true
+  site-url: https://gh.peter.gy/quarto-gradio
+  repo-url: https://github.com/peter-gy/quarto-gradio
+  issue-url: https://github.com/peter-gy/quarto-gradio/issues/new/choose
+  repo-actions: [edit, issue]
+  page-navigation: true
+  bread-crumbs: true
+  search:
+    show-item-context: true
+    type: overlay
+  navbar:
+    background: light
+    #logo: quarto.png
+    #logo-alt: "Quarto logo."
+    title: false
+    collapse-below: lg
+    left:
+      - text: "Overview"
+        href: index.qmd
+      - text: "Get Started"
+        href: docs/get-started/index.qmd
+      - text: "Guide"
+        href: docs/guide/index.qmd
+      - text: Playground
+        href: docs/playground/index.qmd
+      - text: "Reference"
+        href: docs/reference/index.qmd
+      - text: "About"
+        href: about.qmd
+      - text: "Help"
+        menu:
+          - text: "Report a Bug"
+            icon: "bug"
+            href: "https://github.com/peter-gy/quarto-gradio/issues"
+          - text: "Ask a Question"
+            icon: "chat-right-text"
+            href: "https://github.com/peter-gy/quarto-gradio/discussions"
+    tools:
+      - icon: github
+        href: https://github.com/peter-gy/quarto-gradio
+        text: GitHub Repository
+
+format:
+  html:
+    code-copy: true
+    code-fold: true
+    code-overflow: wrap
+    theme: darkly
+    toc: true
+
+filters:
+  - gradio
+
+freeze: true
