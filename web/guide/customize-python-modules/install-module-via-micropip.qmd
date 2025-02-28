@@ -1,0 +1,30 @@
+---
+filters:
+  - gradio
+---
+
+```{python}
+#| gr-playground: true
+# Read more about micropip at https://micropip.pyodide.org/en/v0.2.2/project/api.html#micropip.install
+import micropip
+await micropip.install("faker")
+
+import gradio as gr
+from faker import Faker
+import pandas as pd
+
+fake = Faker()
+data_types = {"Name": fake.name, "Address": fake.address, "Email": fake.email, 
+              "Phone": fake.phone_number, "Job": fake.job}
+
+def generate_data(data_type, count):
+    data = [{"#": i+1, "Data": data_types[data_type]()} for i in range(count)]
+    return pd.DataFrame(data)
+
+demo = gr.Interface(
+    fn=generate_data,
+    inputs=[gr.Dropdown(list(data_types.keys())), gr.Slider(1, 10, value=3, step=1)],
+    outputs=gr.Dataframe(wrap=True),
+)
+demo.launch()
+```

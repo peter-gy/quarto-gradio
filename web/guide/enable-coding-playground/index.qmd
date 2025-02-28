@@ -62,3 +62,7 @@ If you use Quarto for educational content where writing Python in *any* way is r
 ### Challenge: Reverse Words
 
 {{< include coding-challenge.qmd >}}
+
+## Next Steps
+
+So far, than only non-standard Python module our examples used was `gradio`. We clearly want to take advantage of Python's rich ecosystem of libraries, so in the next guide we will cover how to install custom Python packages to our in-browser Python environment.

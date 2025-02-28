@@ -38,17 +38,17 @@ website:
           - text: "📦 Customize Python Modules"
             href: guide/customize-python-modules/index.qmd
           
-          - text: "🎨 Customize Styles"
-            href: guide/customize-styles/index.qmd
+          #- text: "🎨 Customize Styles"
+          #  href: guide/customize-styles/index.qmd
           
-          - text: "📚 Define Multiple Apps"
-            href: guide/define-multiple-apps/index.qmd
+          #- text: "📚 Define Multiple Apps"
+          #  href: guide/define-multiple-apps/index.qmd
 
           - text: "💡 Use with Reveal.js"
             href: guide/use-with-revealjs/index.qmd
           
-          - text: "📓 Use with Jupyter"
-            href: guide/use-with-jupyter/index.qmd
+          #- text: "📓 Use with Jupyter"
+          #  href: guide/use-with-jupyter/index.qmd
         
       - section: "Playground"
         contents:

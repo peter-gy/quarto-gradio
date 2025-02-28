@@ -2,3 +2,55 @@
 title: "📦 Customize Python Modules"
 ---
 
+This guide will give you a brief overview of package management in a browser-based Python environment and how you can specify custom dependencies for your Gradio apps via the `quarto-gradio` extension.
+
+## Available Python Modules
+
+Let's say we want to display a [Plotly](https://plotly.com/python/){target="_blank"} chart in a Gradio app. However, by default, we are only allowed to import Python modules that come with the [![pyodide-logo](../../public/pyodide-logo.png){width=24} Pyodide](https://github.com/pyodide/pyodide){target=_blank} distribution used by Gradio Lite and `plotly` is not one of them.
+
+## Installation via `gradio.requirements`
+
+You can specify any number of Python packages in the `gradio.requirements` metadata.
+
+```md
+---
+filters:
+  - gradio
+
+gradio:
+  requirements:
+    - plotly==5.24.0
+---
+```
+
+:::{.callout-tip}
+Click on "Submit" to visualize the selected dataset using Plotly.
+:::
+
+{{< include install-module-via-requirements.qmd >}}
+
+### Supported Requirement Formats
+
+| Format | Description | Example |
+|--------|-------------|---------|
+| Package name | Just the package name to install latest version | `plotly` |
+| Package and version | Package with specific version or version range | `plotly==5.24.0` |
+| URL | Remote wheel or source distribution | https://some.cdn.com/plotly-5.24.1-py3-none-any.whl |
+
+## Installation via `micropip`
+
+It is also possible to install Python packages via the `micropip` library at runtime. In the interactive example below, we install the `faker` package to generate mock data.
+
+{{< include install-module-via-micropip.qmd >}}
+
+## Limitations
+
+:::{.callout-warning}
+Not every Python package is supported by Pyodide. While `gradio` and many other popular packages (including `numpy`, `scikit-learn`, and `transformers-js`) can be installed in Pyodide, if your app has many dependencies, its worth checking whether whether the dependencies are included in Pyodide, or can be installed with [`micropip`](https://micropip.pyodide.org/en/v0.2.2/project/api.html#micropip.install).
+:::
+
+Source: [Gradio Lite Documentation](https://www.gradio.app/guides/gradio-lite#limitations){target="_blank"}
+
+## Next Steps
+
+Having covered the core features of the `quarto-gradio` extension, in the subsequent guides we'll explore more advanced use cases.

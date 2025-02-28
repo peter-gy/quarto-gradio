@@ -1,0 +1,44 @@
+---
+filters:
+  - gradio
+
+gradio:
+  requirements:
+    - plotly==5.24.0
+---
+
+```{python}
+import gradio as gr
+import plotly.express as px
+
+datasets = {
+    "iris": px.data.iris(),
+    "gapminder": px.data.gapminder(), 
+    "tips": px.data.tips()
+}
+default_dataset = list(datasets.keys())[0]
+
+
+def plot_figure(dataset):
+    if not dataset:
+        return None
+    df = datasets[dataset]
+    return px.scatter(
+        df,
+        x=df.columns[0],
+        y=df.columns[1], 
+        color=df.columns[-1],
+        title=f"{dataset.title()} Dataset"
+    )
+
+
+gr.Interface(
+    fn=plot_figure,
+    inputs=gr.Dropdown(
+        choices=list(datasets.keys()),
+        value=default_dataset,
+    ),
+    outputs="plot",
+    flagging_mode="never"
+).launch()
+```
