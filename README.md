@@ -2,7 +2,12 @@
 
 > Enable embedding entirely serverless, browser-based Gradio applications and coding playgrounds in your Quarto documents.
 
-`quarto-gradio` is an extension that embeds [Gradio Lite](https://www.gradio.app/guides/gradio-lite) apps into HTML documents, allowing your Python applications to run directly within your web browser without the need for a server. This extension automatically detects the Python contents of your code blocks as well as the entry points to Gradio apps you define and produces cell output with an embedded [Pyodide-powered](https://pyodide.org/en/stable/) 100% browser-based application. It works with all HTML-based formats including Reveal.js.
+`quarto-gradio` is an extension that embeds [Gradio Lite](https://www.gradio.app/guides/gradio-lite) apps into HTML documents, allowing your Python applications to run directly within your web browser without the need for a server.
+
+- 🌐 100% browser-based, [Pyodide-powered](https://pyodide.org/en/stable/), no Python server required
+- 📓 Supports all Quarto input formats including Jupyter Notebooks
+- ⚡ Supports all HTML-based output formats including [Reveal.js](https://revealjs.com) presentations
+- 📚 Comes with [interactive documentation](https://quarto-gradio.peter.gy)
 
 ## Installing
 
