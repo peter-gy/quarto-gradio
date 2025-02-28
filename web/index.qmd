@@ -10,4 +10,4 @@ Please keep in mind that the guides focus specifically on usage and customizatio
 In case you are interested in the extension's internals and technical details covering each of the components at play, you can get an overview in the [Reference](/docs/reference/) section.
 :::
 
-If you prefer to familiarize yourself with the Gradio API in an online environment, you can head over to the [🛝 Playground](/docs/playground/), otherwise feel free to [🚀 Get Started](/docs/guide/get-started/) with the basics of the extension.
+If you prefer to familiarize yourself with the Gradio API in an online environment, you can head over to the [🛝 Playground](/playground/tabular/kinematics.html), otherwise feel free to [🚀 Get Started](/guide/get-started/) with the basics of the extension.
