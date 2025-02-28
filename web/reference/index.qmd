@@ -19,7 +19,7 @@ gradio:
         layout: horizontal   # Optional: "horizontal" or "vertical"
 ```
 
-The extension is solely responsible for passing this metadata to appropriate HTML tags defined by [@gradio/lite](https://www.npmjs.com/package/@gradio/lite) package. For a more detailed explanation of metadata semantics, please refer to the [Gradio Lite documentation](https://www.gradio.app/guides/gradio-lite).
+The extension is solely responsible for passing this metadata to appropriate HTML tags defined by [@gradio/lite](https://www.npmjs.com/package/@gradio/lite){target=_blank} package. For a more detailed explanation of metadata semantics, please refer to the [Gradio Lite documentation](https://www.gradio.app/guides/gradio-lite){target=_blank}.
 
 ## Supported Python Requirement Formats
 
@@ -31,10 +31,10 @@ You can consult the [📦 Customize Python Modules](../guide/customize-python-mo
 | Package and version| Package with specific version or version range   | `plotly==5.24.0`                                    |
 | URL                | Remote wheel or source distribution              | https://some.cdn.com/plotly-5.24.1-py3-none-any.whl |
 
-For a deep-dive into the details of Python packages in a browser environment, see the [Pyodide documentation](https://pyodide.org/en/stable/usage/packages-in-pyodide.html).
+For a deep-dive into the details of Python packages in a browser environment, see the [Pyodide documentation](https://pyodide.org/en/stable/usage/packages-in-pyodide.html){target=_blank}.
 
 ## Document Processing Flow
 
-The main idea behind this extension is to hook into the lifecycle of the Quarto document at the stage where it is represented as a [Pandoc Abstract Syntax Tree (AST)](https://pandoc.org/filters.html), collect all the source code from Python code blocks and dynamically construct the appropriate HTML tree by populating the `<gradio-requirements/>` and `<gradio-lite/>` tags.
+The main idea behind this extension is to hook into the lifecycle of the Quarto document at the stage where it is represented as a [Pandoc Abstract Syntax Tree (AST)](https://pandoc.org/filters.html){target=_blank}, collect all the source code from Python code blocks and dynamically construct the appropriate HTML tree by populating the `<gradio-requirements/>` and `<gradio-lite/>` tags.
 
 ![Document Processing Flow](../public/flow.svg)

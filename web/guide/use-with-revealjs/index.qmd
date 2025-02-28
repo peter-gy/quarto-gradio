@@ -21,6 +21,6 @@ Embedding Gradio Lite apps into Reveal.js presentations is extremely similar to 
 
 ## Complex Example
 
-Thanks to all the existing Quarto + Reveal.js features, the presentation can be customized to the n<sup>th</sup> degree, as described in the [Quarto Reveal.js documentation](https://quarto.org/docs/presentations/revealjs/).
+Thanks to all the existing Quarto + Reveal.js features, the presentation can be customized to the n<sup>th</sup> degree, as described in the [Quarto Reveal.js documentation](https://quarto.org/docs/presentations/revealjs/){target=_blank}.
 
 <iframe src="./reveal-gradio-lite.html" width="100%" height="500px"></iframe>
