@@ -1,3 +1,26 @@
 ---
 title: "💡 Use with Reveal.js"
 ---
+
+This guide will demonstrate how you can embed a Gradio app into a Reveal.js presentation.
+
+## Minimal Example
+
+Embedding Gradio Lite apps into Reveal.js presentations is extremely similar to embedding them into other HTML-based Quarto documents. The main difference is that the following Quarto options must be specified at the cell-level:
+
+```python
+#| echo: true
+#| output-location: slide
+```
+
+````md
+{{< src-include reveal-gradio-lite-minimal.qmd >}}
+````
+
+<iframe src="./reveal-gradio-lite-minimal.html" width="100%" height="500px"></iframe>
+
+## Complex Example
+
+Thanks to all the existing Quarto + Reveal.js features, the presentation can be customized to the n<sup>th</sup> degree, as described in the [Quarto Reveal.js documentation](https://quarto.org/docs/presentations/revealjs/).
+
+<iframe src="./reveal-gradio-lite.html" width="100%" height="500px"></iframe>

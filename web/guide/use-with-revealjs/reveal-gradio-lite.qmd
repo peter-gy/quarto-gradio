@@ -1,0 +1,57 @@
+---
+title: "Bringing ML to Life: Gradio + Reveal.js via `quarto-gradio`"
+format: 
+  revealjs:
+    theme: dark
+    slide-number: true
+    logo: ../../public/quarto-gradio.png
+
+filters:
+  - gradio
+
+gradio:
+  requirements:
+    - transformers-js-py
+---
+
+## 🤗 Sentiment Analysis via Transformers.js
+
+```{python}
+#| echo: true
+#| output-location: slide
+#| gr-theme: dark
+import gradio as gr
+from transformers_js_py import pipeline
+
+pipe = await pipeline("sentiment-analysis")
+
+async def process(text):
+    return await pipe(text)
+
+demo = gr.Interface(
+    fn=process,
+    inputs=gr.Textbox(value="Change this text, then click 'Submit'"),
+    outputs="json",
+    flagging_mode="never",
+)
+
+demo.launch()
+```
+
+## 🛝 Coding Playground
+
+```{python}
+#| echo: true
+#| output-location: slide
+#| gr-playground: true
+#| gr-layout: vertical
+#| gr-theme: dark
+import gradio as gr
+
+gr.Interface(
+    fn=lambda name: f"Hi {name}!",
+    inputs="textbox",
+    outputs="textbox",
+    live=True,
+).launch()
+```

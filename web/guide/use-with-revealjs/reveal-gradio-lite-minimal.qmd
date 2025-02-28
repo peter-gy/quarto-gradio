@@ -1,0 +1,27 @@
+---
+format: 
+  revealjs:
+    theme: dark
+    slide-number: true
+
+filters:
+  - gradio
+---
+
+## Slide Title
+
+Make sure to check the next slide, the live app is there!
+
+```{python}
+#| echo: true
+#| output-location: slide
+#| gr-theme: dark
+import gradio as gr
+
+gr.Interface(
+    fn=lambda name: f"Hi {name}!",
+    inputs="textbox",
+    outputs="textbox",
+    live=True,
+).launch()
+```
