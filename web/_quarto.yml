@@ -11,6 +11,7 @@ website:
   site-url: https://quarto-gradio.peter.gy
   repo-url: https://github.com/peter-gy/quarto-gradio
   page-navigation: true
+  back-to-top-navigation: false
   bread-crumbs: true
 
   search:
@@ -131,7 +132,8 @@ website:
   page-footer:
     background: dark
     border: true
-    left: "Created by Péter Ferenc Gyarmati"
+    left: |
+      Made by [Péter Ferenc Gyarmati](https://peter.gy) · Powered by [Quarto](https://quarto.org)<sup>®</sup>
     right: 
       - icon: github
         href: https://l.peter.gy/github
@@ -153,11 +155,14 @@ format:
           <script defer src="https://umami.peter.gy/script.js" data-website-id="6da82a32-91fa-4705-9038-888abf4cdcd8"></script>
     grid:
       sidebar-width: 300px
-      body-width: 1100px
-      margin-width: 0px
+      body-width: 800px
+      margin-width: 200px
 
 filters:
   - gradio
+
+shortcodes:
+  - tools/src-include.lua
 
 execute:
   enabled: false

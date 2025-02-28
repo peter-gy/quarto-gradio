@@ -1,6 +1,11 @@
 ---
 title: "🚀 Get Started"
+format:
+  html:
+    toc: true
 ---
+
+This guide will help you get started with the `quarto-gradio` extension via a simple example. You will see how you can iterate on your Gradio app's source code in your local environment, then embed the very same app with no changes into an entirely browser-based environment.
 
 ## Installation
 
@@ -10,16 +15,39 @@ First things first, make sure you have the `quarto-gradio` extension installed:
 quarto add peter-gy/quarto-gradio
 ```
 
-Ans also ensure that you have an active Python environment with `gradio` installed:
-
-```bash
-pip install gradio
-```
+This will allow us to use the `gradio` filter in our Quarto documents.
 
 ## Hello World
 
-```` md
-{{< include ../examples/hello-world.qmd >}}
+We will get started with a simple "Hello World" example written in a `qmd` document.
+
+### Source Code
+
+We register the `gradio` filter in the document's YAML header and we define a simple Python code block with a basic Gradio interface.
+
+````md
+{{< src-include hello-world.qmd >}}
 ````
 
-<iframe src="/guide/examples/hello-world.html" width="100%" height="400px"></iframe>
+### Local Execution
+
+Since this is a plain old Python program, it can be executed directly in an interactive Python session using your local, serverful Python interpreter.
+
+![Executing the "Hello World" example directly in a local Python session spawned using the "Run Cell" button of the Quarto VSCode extension.](../../public/hello-world-run-cell.gif)
+
+### Browser Execution
+
+However, thanks to the `gradio` filter, after rendering the document, you can access the very same interface directly from your browser, blending with the theme you have specified. In fact, you can see the example embedded into *this* document right below.
+
+{{< include hello-world.qmd >}}
+
+:::{.callout-tip}
+As you can see, the Gradio interface is fully interactive without a Python server.
+The `gradio` filter also made sure that the Gradio app's CSS is harmonized with your current HTML theme.
+:::
+
+## Next Steps
+
+Sometimes you may want to let users to experiment with and modify the Gradio app's source code directly in their browser, seeing changes reflected instantly.
+
+In the next section, we'll explore how to enable just that in an interactive coding playground that lets users edit and run Python code without needing to re-render the document.

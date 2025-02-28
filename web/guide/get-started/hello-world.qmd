@@ -1,0 +1,21 @@
+---
+filters:
+  - gradio
+---
+
+```{python}
+import gradio as gr
+
+def greet(name):
+    return f"Hello {name}!"
+
+
+demo = gr.Interface(
+    fn=greet,
+    inputs="textbox",
+    outputs="textbox",
+    live=True
+)
+
+demo.launch()
+```
