@@ -29,3 +29,7 @@ img.sidebar-logo {
 nav.quarto-page-breadcrumbs {
   margin-bottom: 1em;
 }
+
+p, li {
+  line-height: 1.8;
+}

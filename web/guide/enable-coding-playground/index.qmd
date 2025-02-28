@@ -2,3 +2,63 @@
 title: "🛝 Enable Coding Playground"
 ---
 
+This guide will show you how to convert your Gradio app into a coding playground embedded in your Quarto document. Along the way, you will also learn how to specify custom options for your embedded app that the `quarto-gradio` extension will understand and apply.
+
+## Specifying Attributes
+
+Fortunately, the [@gradio/lite](https://www.npmjs.com/package/@gradio/lite){target=_blank} library does all the heavy lifting for us under the hood. All we need to do is to pass the `playground` attribute to the internal `<gradio-lite/>` HTML tag, as the [Gradio Lite documentation](https://www.gradio.app/guides/gradio-lite#code-and-demo-playground){target=_blank} describes.
+
+The `quarto-gradio` extension allows you to specify attributes both at the document level in YAML metadata and at the code block level using the `#|` prefix in comments.
+
+### Document Level
+
+Specifying attributes in the document frontmatter is the easiest way to apply configuration to all Gradio apps in your document.
+
+````md
+{{< src-include attributes-doc.qmd >}}
+````
+
+Thanks to the presence of `playground: true` in the `gradio.attributes` metadata, our Gradio app will be rendered in its interactive mode.
+
+{{< include attributes-doc.qmd >}}
+
+:::{.py-2}
+:::
+
+The extension reads all key-value pairs from `gradio.attributes` and passes them to the `<gradio-lite/>` tag as HTML attributes.
+
+That is, the following YAML metadata
+
+```yml
+gradio:
+  attributes:
+    playground: true
+```
+
+will prompt the extension to generate the following HTML tag:
+
+```html
+<gradio-lite playground>...</gradio-lite>
+```
+
+### Code Block Level
+
+In some cases it is desired to specify attributes on a per-code block basis. This can be done using the `#|` prefix in comments.
+An important details is that attribute names must be prefixed with `gr-` to avoid conflicts with other Quarto attributes.
+
+````md
+{{< src-include attributes-block.qmd >}}
+````
+
+Just as above, the `playground` attribute is recognized by the extension and it makes sure that the Gradio app is rendered in its interactive mode. In addition, as the `layout` attribute is specified to be vertical via `#| gr-layout: vertical`, the code editor and the resulting app are laid out vertically instead of the default horizontal layout.
+
+{{< include attributes-block.qmd >}}
+
+## Use Case: Online Coding Challenge
+
+Thanks to this embedding mechanism, it is straightforward to create online coding challenges and bite-sized exercises backed by a Gradio UI.
+If you use Quarto for educational content where writing Python in *any* way is required, this might be a good way to make your content more interactive and keep your audience engaged.
+
+### Challenge: Reverse Words
+
+{{< include coding-challenge.qmd >}}

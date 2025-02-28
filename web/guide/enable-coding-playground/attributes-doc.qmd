@@ -1,0 +1,18 @@
+---
+filters:
+  - gradio
+
+gradio:
+  attributes:
+    playground: true
+---
+
+```{python}
+import gradio as gr
+
+gr.Interface(
+    fn=lambda name: f"Hi {name}!",
+    inputs="textbox",
+    outputs="textbox"
+).launch()
+```

@@ -1,0 +1,32 @@
+---
+filters:
+  - gradio
+---
+
+In this coding challenge, you'll implement a function that reverses each word in a sentence while maintaining word order. For example, "Hello World" should become "olleH dlroW". Try implementing the `reverse_words` function below!
+
+```{python}
+#| gr-playground: true
+#| gr-layout: vertical
+import gradio as gr
+
+def reverse_words(sentence):
+    # You should implement: "Hello World" -> "olleH dlroW"
+    # return " ".join(word[::-1] for word in sentence.split())
+    return "CHANGE ME"
+
+def check_solution(user_input):
+    correct = " ".join(word[::-1] for word in user_input.split())
+    user_result = reverse_words(user_input)
+    return user_result, correct, "✅ Correct!" if user_result == correct else "❌ Try again!"
+
+with gr.Blocks() as demo:
+    gr.Markdown("# Reverse Words Challenge")
+    input_text = gr.Textbox(label="Sentence", value="Hello World")
+    output_user = gr.Textbox(label="Your Output")
+    output_correct = gr.Textbox(label="Expected")
+    result = gr.Textbox(label="Result")
+    gr.Button("Check").click(check_solution, input_text, [output_user, output_correct, result])
+
+demo.launch()
+```
