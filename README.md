@@ -78,3 +78,9 @@ gr.Interface(fn=greet, inputs="textbox", outputs="textbox", live=True).launch()
 Here is the source code of a minimal example: [example.qmd](example.qmd).
 
 For more detailed guide, further examples and rendered output, please refer to the [documentation site](https://quarto-gradio.peter.gy).
+
+## Design
+
+The main idea behind this extension is to hook into the lifecycle of the Quarto document at the stage where it is represented as a [Pandoc Abstract Syntax Tree (AST)](https://pandoc.org/filters.html), collect all the source code from Python code blocks and dynamically construct the appropriate HTML tree by populating the `<gradio-requirements/>` and `<gradio-lite/>` tags.
+
+![document-processing-flow](web/public/flow.svg)
