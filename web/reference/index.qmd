@@ -2,3 +2,39 @@
 title: "Reference"
 ---
 
+## Supported YAML Metadata
+
+The `quarto-gradio` extension processes the following YAML metadata:
+
+```yml
+gradio:
+    cdn: "https://cdn.jsdelivr.net/npm/@gradio/lite"  # @gradio/lite CDN base
+    version: "latest"                                 # @gradio/lite version
+    requirements:                                     # Deps to pass to <gradio-requirements/>
+        - plotly==5.24.0
+    attributes:              # List of attributes to pass to <gradio-lite/> tag
+        theme: dark          # Optional: "dark" or "light"
+        shared-worker: false # Optional: true or false
+        playground: false    # Optional: true or false
+        layout: horizontal   # Optional: "horizontal" or "vertical"
+```
+
+The extension is solely responsible for passing this metadata to appropriate HTML tags defined by [@gradio/lite](https://www.npmjs.com/package/@gradio/lite) package. For a more detailed explanation of metadata semantics, please refer to the [Gradio Lite documentation](https://www.gradio.app/guides/gradio-lite).
+
+## Supported Python Requirement Formats
+
+You can consult the [📦 Customize Python Modules](../guide/customize-python-modules/) guide for an example of how to use the `requirements` metadata.
+
+| Format             | Description                                      | Example                                             |
+|------------------- |--------------------------------------------------|-----------------------------------------------------|
+| Package name       | Just the package name to install latest version  | `plotly`                                            |
+| Package and version| Package with specific version or version range   | `plotly==5.24.0`                                    |
+| URL                | Remote wheel or source distribution              | https://some.cdn.com/plotly-5.24.1-py3-none-any.whl |
+
+For a deep-dive into the details of Python packages in a browser environment, see the [Pyodide documentation](https://pyodide.org/en/stable/usage/packages-in-pyodide.html).
+
+## Document Processing Flow
+
+The main idea behind this extension is to hook into the lifecycle of the Quarto document at the stage where it is represented as a [Pandoc Abstract Syntax Tree (AST)](https://pandoc.org/filters.html), collect all the source code from Python code blocks and dynamically construct the appropriate HTML tree by populating the `<gradio-requirements/>` and `<gradio-lite/>` tags.
+
+![Document Processing Flow](../public/flow.svg)

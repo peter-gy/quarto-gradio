@@ -29,13 +29,7 @@ Click on "Submit" to visualize the selected dataset using Plotly.
 
 {{< include install-module-via-requirements.qmd >}}
 
-### Supported Requirement Formats
-
-| Format | Description | Example |
-|--------|-------------|---------|
-| Package name | Just the package name to install latest version | `plotly` |
-| Package and version | Package with specific version or version range | `plotly==5.24.0` |
-| URL | Remote wheel or source distribution | https://some.cdn.com/plotly-5.24.1-py3-none-any.whl |
+You can read about supported Python requirement formats in the [Reference](../../reference/) section.
 
 ## Installation via `micropip`
 
