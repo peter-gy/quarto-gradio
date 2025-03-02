@@ -5,28 +5,24 @@ gradio:
     - transformers-js-py
   attributes:
     playground: true
-    layout: "horizontal"
+    layout: "vertical"
 ---
 
 ```{python}
 import gradio as gr
 from transformers_js_py import pipeline
 
-pipe = await pipeline("sentiment-analysis")
+pipe = await pipeline('sentiment-analysis')
 
-
-async def process(text):
-    return await pipe(text)
-
-
-demo = gr.Interface(
-    fn=process,
-    inputs=gr.Textbox(value="Gradio is even cooler when it's in Quarto!"),
-    outputs="json",
+demo = gr.Interface.from_pipeline(
+    pipe,
     flagging_mode="never",
+    live=True,
+    examples=[
+      ["🟢 Quarto + Gradio is a great match"],
+      ["🔴 It would be a shame if this integration didn't work"],
+    ],
 )
 
-if __name__ == "__main__":
-    demo.launch()
+demo.launch()
 ```
-
