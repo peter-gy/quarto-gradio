@@ -1,5 +1,6 @@
 ---
 title: Overview
+description: "A Quarto extension enabling the embedding of serverless Gradio Lite apps into HTML documents."
 ---
 
 This website is meant to provide a hands-on guide to making the most out of integrating [![quarto-logo](public/quarto-logo.png){width=24} Quarto](https://quarto.org){target=_blank} and [![gradio-logo](public/gradio-logo.png){width=24} Gradio Lite](https://www.gradio.app/guides/gradio-lite){target=_blank} for embedding interactive Python applications into your HTML documents. If these docs do not answer all of your questions, please don't hesitate to [start a new discussion](https://github.com/peter-gy/quarto-gradio/discussions){target=_blank} on the GitHub repository.

@@ -1,3 +1,4 @@
+image: ../public/quarto-gradio-bg.png
 subtitle: Adapted from [Gradio Playground](https://gradio.app/playground/){target=_blank}.
 
 include-in-header:

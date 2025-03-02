@@ -1,11 +1,7 @@
 ---
 title: "🚀 Get Started"
-format:
-  html:
-    toc: true
+description: "This guide will help you get started with the `quarto-gradio` extension via a simple example. You will see how you can iterate on your Gradio app's source code in your local environment, then embed the very same app with no changes into an entirely browser-based environment."
 ---
-
-This guide will help you get started with the `quarto-gradio` extension via a simple example. You will see how you can iterate on your Gradio app's source code in your local environment, then embed the very same app with no changes into an entirely browser-based environment.
 
 ## Installation
 

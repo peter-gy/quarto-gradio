@@ -1,5 +1,6 @@
 ---
 title: "📦 Customize Python Modules"
+description: "Learn how to manage Python packages and specify custom dependencies for your browser-based Gradio apps."
 ---
 
 This guide will give you a brief overview of package management in a browser-based Python environment and how you can specify custom dependencies for your Gradio apps via the `quarto-gradio` extension.
