@@ -1,0 +1,51 @@
+<!-- 
+  This script adds a warning banner for mobile users since Gradio Lite is not fully optimized 
+  for mobile devices. The warning appears at the top of the page and can be dismissed.
+-->
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // Check if the device is mobile and has Gradio elements
+    const isMobileDevice = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+      navigator.userAgent
+    );
+    const hasGradioElements = document.querySelector('.quarto-gradio');
+
+    if (isMobileDevice && hasGradioElements) {
+      // Create mobile warning element
+      const mobileWarning = document.createElement('div');
+      mobileWarning.id = 'mobile-warning';
+      mobileWarning.className = 'alert alert-warning';
+
+      const warningContent = `
+        <div class="d-flex justify-content-between align-items-center">
+          <div>
+            <i class="bi bi-exclamation-triangle me-2"></i>
+            <strong>Mobile Device Detected</strong><br>
+            Gradio Lite is currently optimized for desktop browsers. 
+            Interactive components may not work as expected on your current device.
+          </div>
+          <button type="button" class="btn-close" aria-label="Close"></button>
+        </div>
+      `;
+      mobileWarning.innerHTML = warningContent;
+
+      // Style the warning to be sticky
+      Object.assign(mobileWarning.style, {
+        position: 'sticky',
+        top: '0',
+        zIndex: '1050', 
+        width: '100%',
+        margin: '0',
+        borderRadius: '0'
+      });
+
+      // Add warning to top of body
+      document.body.insertBefore(mobileWarning, document.body.firstChild);
+
+      // Handle close button click
+      const closeButton = mobileWarning.querySelector('.btn-close');
+      closeButton.addEventListener('click', () => mobileWarning.remove());
+    }
+  });
+</script>
