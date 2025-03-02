@@ -19,6 +19,5 @@ demo = gr.ChatInterface(
     save_history=True,
 )
 
-if __name__ == "__main__":
-    demo.launch()
+demo.launch()
 ```

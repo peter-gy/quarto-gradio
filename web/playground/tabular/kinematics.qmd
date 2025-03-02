@@ -47,6 +47,5 @@ with gr.Blocks() as demo:
     speed.change(plot, [speed, angle], plot_output)
     angle.change(plot, [speed, angle], plot_output)
 
-if __name__ == "__main__":
-    demo.launch()
+demo.launch()
 ```

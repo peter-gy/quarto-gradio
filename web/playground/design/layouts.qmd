@@ -46,6 +46,5 @@ with gr.Blocks() as demo:
     image_button.click(flip_image, inputs=image_input, outputs=image_output)
 
 
-if __name__ == "__main__":
-    demo.launch()
+demo.launch()
 ```

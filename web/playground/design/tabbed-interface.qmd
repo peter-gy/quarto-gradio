@@ -11,6 +11,5 @@ chat = gr.ChatInterface(lambda *args: "Hello " + args[0], flagging_mode='never')
 
 demo = gr.TabbedInterface([hello_world, chat, bye_world], ["Hello World", "Chat", "Bye World"])
 
-if __name__ == "__main__":
-    demo.launch()
+demo.launch()
 ```

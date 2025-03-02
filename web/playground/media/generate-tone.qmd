@@ -30,6 +30,5 @@ demo = gr.Interface(
     flagging_mode="never",
 )
 
-if __name__ == "__main__":
-    demo.launch()
+demo.launch()
 ```
