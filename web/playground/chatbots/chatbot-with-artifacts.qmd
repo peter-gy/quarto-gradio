@@ -54,6 +54,5 @@ with gr.Blocks() as demo:
             gr.Markdown("<center><h1>Code Artifacts</h1></center>")
             code.render()
 
-if __name__ == "__main__":
-    demo.launch()
+demo.launch()
 ```

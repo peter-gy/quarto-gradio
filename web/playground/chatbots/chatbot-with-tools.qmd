@@ -80,6 +80,5 @@ with gr.Blocks() as demo:
     button.click(generate_response, chatbot, chatbot)
     chatbot.like(like)
 
-if __name__ == "__main__":
-    demo.launch()
+demo.launch()
 ```
