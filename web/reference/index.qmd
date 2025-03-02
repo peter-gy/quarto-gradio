@@ -1,5 +1,6 @@
 ---
 title: "Reference"
+description: "Configuration options and technical details of the extension."
 ---
 
 ## Supported YAML Metadata
@@ -8,15 +9,29 @@ The `quarto-gradio` extension processes the following YAML metadata:
 
 ```yml
 gradio:
-    cdn: "https://cdn.jsdelivr.net/npm/@gradio/lite"  # @gradio/lite CDN base
-    version: "latest"                                 # @gradio/lite version
-    requirements:                                     # Deps to pass to <gradio-requirements/>
+    # @gradio/lite CDN base
+    cdn: "https://cdn.jsdelivr.net/npm/@gradio/lite"
+    
+    # @gradio/lite version
+    version: "latest"                                
+    
+    # Deps to pass to <gradio-requirements/>
+    requirements:                                    
         - plotly==5.24.0
-    attributes:              # List of attributes to pass to <gradio-lite/> tag
-        theme: dark          # Optional: "dark" or "light"
-        shared-worker: false # Optional: true or false
-        playground: false    # Optional: true or false
-        layout: horizontal   # Optional: "horizontal" or "vertical"
+    
+    # List of attributes to pass to <gradio-lite/> tag
+    attributes:              
+        # Optional: "dark" or "light"
+        theme: dark          
+        
+        # Optional: true or false
+        shared-worker: false 
+        
+        # Optional: true or false
+        playground: false    
+        
+        # Optional: "horizontal" or "vertical"
+        layout: horizontal   
 ```
 
 The extension is solely responsible for passing this metadata to appropriate HTML tags defined by [@gradio/lite](https://www.npmjs.com/package/@gradio/lite){target=_blank} package. For a more detailed explanation of metadata semantics, please refer to the [Gradio Lite documentation](https://www.gradio.app/guides/gradio-lite){target=_blank}.

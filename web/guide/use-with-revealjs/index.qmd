@@ -1,8 +1,7 @@
 ---
 title: "💡 Use with Reveal.js"
+description: "This guide will demonstrate how you can embed a Gradio app into a Reveal.js presentation."
 ---
-
-This guide will demonstrate how you can embed a Gradio app into a Reveal.js presentation.
 
 ## Minimal Example
 

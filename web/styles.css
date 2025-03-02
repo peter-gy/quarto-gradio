@@ -33,3 +33,7 @@ nav.quarto-page-breadcrumbs {
 p, li {
   line-height: 1.8;
 }
+
+.description {
+  margin-top: .75em !important;
+}

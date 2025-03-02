@@ -4,9 +4,10 @@ project:
 
 website:
   title: "Quarto 🔹🔸 Gradio"
-  image: public/quarto-gradio-bg.png
   favicon: public/favicon.png
-  open-graph: true
+  open-graph:
+    locale: en_US
+    site-name: "Quarto 🔹🔸 Gradio"
   twitter-card: true
   site-url: https://quarto-gradio.peter.gy
   repo-url: https://github.com/peter-gy/quarto-gradio
