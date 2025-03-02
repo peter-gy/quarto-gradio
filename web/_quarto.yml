@@ -151,8 +151,9 @@ format:
     theme: darkly
     css: styles.css
     include-in-header:
-      - text: |
-          <script defer src="https://umami.peter.gy/script.js" data-website-id="6da82a32-91fa-4705-9038-888abf4cdcd8"></script>
+      - analytics.html
+    include-after-body:
+      - js.html
     grid:
       sidebar-width: 300px
       body-width: 800px
