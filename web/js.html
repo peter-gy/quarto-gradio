@@ -1,6 +1,7 @@
 <!-- 
   This script adds a warning banner for mobile users since Gradio Lite is not fully optimized 
   for mobile devices. The warning appears at the top of the page and can be dismissed.
+  When dismissed, the preference is stored in localStorage to prevent showing it again.
 -->
 
 <script>
@@ -10,8 +11,9 @@
       navigator.userAgent
     );
     const hasGradioElements = document.querySelector('.quarto-gradio');
+    const warningDismissed = localStorage.getItem('gradioLiteMobileWarningDismissed') === 'true';
 
-    if (isMobileDevice && hasGradioElements) {
+    if (isMobileDevice && hasGradioElements && !warningDismissed) {
       // Create mobile warning element
       const mobileWarning = document.createElement('div');
       mobileWarning.id = 'mobile-warning';
@@ -45,7 +47,10 @@
 
       // Handle close button click
       const closeButton = mobileWarning.querySelector('.btn-close');
-      closeButton.addEventListener('click', () => mobileWarning.remove());
+      closeButton.addEventListener('click', () => {
+        mobileWarning.remove();
+        localStorage.setItem('gradioLiteMobileWarningDismissed', 'true');
+      });
     }
   });
 </script>
