@@ -24,8 +24,8 @@ gradio:
         # Optional: "dark" or "light"
         theme: dark          
         
-        # Optional: true or false
-        shared-worker: false 
+        # Optional: true or false, defaults to true
+        shared-worker: true
         
         # Optional: true or false
         playground: false    
