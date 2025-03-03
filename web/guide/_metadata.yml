@@ -1,4 +1,4 @@
 image: ../public/quarto-gradio-bg.png
 
 gradio:
-  cdn: "https://minio.peter.gy/static/npm/\\@gradio/lite"
+  cdn: "https://peter-gy.github.io/static/npm/gradio-lite"

@@ -11,7 +11,7 @@ include-in-header:
     </style>
 
 gradio:
-  cdn: "https://minio.peter.gy/static/npm/\\@gradio/lite"
+  cdn: "https://peter-gy.github.io/static/npm/gradio-lite"
   attributes:
     playground: true
     layout: "horizontal"
