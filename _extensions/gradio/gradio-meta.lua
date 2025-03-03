@@ -5,7 +5,9 @@ local default_metadata = {
     cdn = "https://cdn.jsdelivr.net/npm/@gradio/lite",
     version = nil,
     requirements = {},
-    attributes = {},
+    attributes = {
+        ['shared-worker'] = true,
+    },
 }
 
 -- JS-like map function
