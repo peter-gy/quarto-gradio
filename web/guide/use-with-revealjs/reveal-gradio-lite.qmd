@@ -10,6 +10,7 @@ filters:
   - gradio
 
 gradio:
+  cdn: "https://minio.peter.gy/static/npm/\\@gradio/lite"
   requirements:
     - transformers-js-py
 ---
