@@ -50,11 +50,17 @@ local function create_gradio_html(files, cdn, version, requirements, attributes)
     -- Build attributes string for gradio-lite tag
     local attr_str = build_attributes_string(attributes)
 
+    -- Build base URL of JS and CSS files. If version is nil, do not specify @<version>
+    local base_url = cdn
+    if version ~= nil then
+        base_url = base_url .. '@' .. version
+    end
+
     -- Create the HTML template
     return string.format([[
 <div class="quarto-gradio">
-  <script type="module" crossorigin src="%s@%s/dist/lite.js"></script>
-  <link rel="stylesheet" href="%s@%s/dist/lite.css" />
+  <script type="module" crossorigin src="%s/dist/lite.js"></script>
+  <link rel="stylesheet" href="%s/dist/lite.css" />
   <gradio-lite%s>
     <gradio-requirements>
 %s
@@ -63,8 +69,8 @@ local function create_gradio_html(files, cdn, version, requirements, attributes)
   </gradio-lite>
 </div>
 ]],
-        cdn, version,
-        cdn, version,
+        base_url,
+        base_url,
         attr_str,
         table.concat(requirements, "\n"),
         escape_html(entrypoint_content)

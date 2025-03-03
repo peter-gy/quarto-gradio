@@ -10,9 +10,9 @@ The `quarto-gradio` extension processes the following YAML metadata:
 ```yml
 gradio:
     # @gradio/lite CDN base
-    cdn: "https://cdn.jsdelivr.net/npm/@gradio/lite"
+    cdn: "https://cdn.jsdelivr.net/npm/\\@gradio/lite"
     
-    # @gradio/lite version
+    # @gradio/lite version, optional, defaults to null
     version: "latest"                                
     
     # Deps to pass to <gradio-requirements/>
