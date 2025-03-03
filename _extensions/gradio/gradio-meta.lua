@@ -3,7 +3,7 @@ local table = require("table-utils")
 -- Default metadata values
 local default_metadata = {
     cdn = "https://cdn.jsdelivr.net/npm/@gradio/lite",
-    version = "latest",
+    version = nil,
     requirements = {},
     attributes = {},
 }
