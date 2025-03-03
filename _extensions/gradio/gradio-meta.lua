@@ -7,6 +7,7 @@ local default_metadata = {
     requirements = {},
     attributes = {
         ['shared-worker'] = true,
+        theme = "dark",
     },
 }
 

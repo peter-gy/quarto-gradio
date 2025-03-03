@@ -21,7 +21,7 @@ gradio:
     
     # List of attributes to pass to <gradio-lite/> tag
     attributes:              
-        # Optional: "dark" or "light"
+        # Optional: "dark" or "light", defaults to "dark"
         theme: dark          
         
         # Optional: true or false, defaults to true
