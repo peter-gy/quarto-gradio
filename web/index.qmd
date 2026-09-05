@@ -3,7 +3,11 @@ title: Overview
 description: "A Quarto extension enabling the embedding of serverless Gradio Lite apps into HTML documents."
 ---
 
-This website is meant to provide a hands-on guide to making the most out of integrating [![quarto-logo](public/quarto-logo.png){width=24} Quarto](https://quarto.org){target=_blank} and [![gradio-logo](public/gradio-logo.png){width=24} Gradio Lite](https://www.gradio.app/guides/gradio-lite){target=_blank} for embedding interactive Python applications into your HTML documents. If these docs do not answer all of your questions, please don't hesitate to [start a new discussion](https://github.com/peter-gy/quarto-gradio/discussions){target=_blank} on the GitHub repository.
+This website is meant to provide a hands-on guide to making the most out of integrating [![quarto-logo](public/quarto-logo.png){width=24} Quarto](https://quarto.org){target=_blank} and [![gradio-logo](public/gradio-logo.png){width=24} Gradio Lite](https://gradio.app/4.44.1/guides/gradio-lite){target=_blank} for embedding interactive Python applications into your HTML documents. If these docs do not answer all of your questions, please don't hesitate to [start a new discussion](https://github.com/peter-gy/quarto-gradio/discussions){target=_blank} on the GitHub repository.
+
+:::{.callout-important}
+The Gradio team [archived Gradio Lite](https://github.com/gradio-app/gradio-lite){target=_blank} on September 11, 2025. `quarto-gradio` pins its browser runtime to the final `@gradio/lite` release, `5.45.0`, so rendered documents use a fixed version of the archived package. Treat the runtime as frozen and run code and dependencies you trust.
+:::
 
 Please keep in mind that the guides focus specifically on usage and customization of the `quarto-gradio` extension. While efforts are made to articulate the interplay of components as clearly as possible, familiarity with Quarto, Python, Gradio and - to a certain extent - [![pyodide-logo](public/pyodide-logo.png){width=24} Pyodide](https://github.com/pyodide/pyodide){target=_blank} will make it easier to follow the examples.
 

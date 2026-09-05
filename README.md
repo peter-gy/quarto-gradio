@@ -2,7 +2,10 @@
 
 > Enable embedding entirely serverless, browser-based Gradio applications and coding playgrounds in your Quarto documents.
 
-`quarto-gradio` is an extension that embeds [Gradio Lite](https://www.gradio.app/guides/gradio-lite) apps into HTML documents, allowing your Python applications to run directly within your web browser without the need for a server.
+`quarto-gradio` is an extension that embeds [Gradio Lite](https://gradio.app/4.44.1/guides/gradio-lite) apps into HTML documents, allowing your Python applications to run directly within your web browser without the need for a server.
+
+> [!IMPORTANT]
+> The Gradio team [archived Gradio Lite](https://github.com/gradio-app/gradio-lite) on September 11, 2025. `quarto-gradio` pins its browser runtime to the final `@gradio/lite` release, `5.45.0`, so rendered documents use a fixed version of the archived package. Treat the runtime as frozen and run code and dependencies you trust.
 
 - 🌐 100% browser-based, [Pyodide-powered](https://pyodide.org/en/stable/), no Python server required
 - 📓 Supports all Quarto input formats including Jupyter Notebooks
@@ -21,6 +24,8 @@ If you're using version control, you will want to check in this directory.
 ## Using
 
 This extension is implemented as a Quarto filter. Once registered, it works out of the box with Python code blocks and can be customized further via top-level metadata in the document's frontmatter as well as via cell options specified within comments at the top of code blocks.
+
+The default browser runtime is `@gradio/lite@5.45.0`. Keep this pin to use the bundled Pyodide compatibility requirements.
 
 This extension was designed to work both with documents written in **Q**uarto **M**ark**d**own and Jupyter Notebooks; therefore, it is possible to iterate on your Gradio app's code in a convenient, traditional server-based Jupyter environment and distribute your notebook as a static, completely serverless web bundle.
 
