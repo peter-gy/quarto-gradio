@@ -1,7 +1,6 @@
 ---
 title: "Sentiment Analysis"
 gradio:
-  cdn: "https://peter-gy.github.io/static/npm/gradio-lite"
   requirements:
     - transformers-js-py
   attributes:

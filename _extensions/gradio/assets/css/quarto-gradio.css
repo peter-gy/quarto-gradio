@@ -22,3 +22,8 @@ gradio-lite .api-docs-wrap,
 gradio-lite .preview {
   background: var(--quarto-body-bg) !important;
 }
+
+/* The archived package references font files that were not published to npm. */
+gradio-lite {
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}

@@ -2,8 +2,10 @@
 local function ensure_html_deps()
     quarto.doc.add_html_dependency({
         name = "quarto-gradio",
-        version = "1.0.0",
-        stylesheets = { "assets/css/quarto-gradio.css" }
+        version = "1.0.1",
+        scripts = { "assets/js/gradio-compat.js" },
+        stylesheets = { "assets/css/quarto-gradio.css" },
+        resources = { "assets/python/runtime-requirements.txt" }
     })
 end
 

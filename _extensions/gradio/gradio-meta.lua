@@ -3,10 +3,10 @@ local table = require("table-utils")
 -- Default metadata values
 local default_metadata = {
     cdn = "https://cdn.jsdelivr.net/npm/@gradio/lite",
-    version = nil,
+    version = "5.45.0",
     requirements = {},
     attributes = {
-        ['shared-worker'] = true,
+        ['shared-worker'] = false,
         theme = "dark",
     },
 }
@@ -48,12 +48,14 @@ local function parse_frontmatter(meta)
     local gradio_metadata = table.copy(default_metadata)
 
     if meta.gradio then
-        if meta.gradio.version then
-            gradio_metadata.version = parse_literal(meta.gradio, "version")
-        end
-
         if meta.gradio.cdn then
             gradio_metadata.cdn = parse_literal(meta.gradio, "cdn")
+            -- A custom CDN may already point at a versioned asset root.
+            gradio_metadata.version = nil
+        end
+
+        if meta.gradio.version then
+            gradio_metadata.version = parse_literal(meta.gradio, "version")
         end
 
         if meta.gradio.requirements then
