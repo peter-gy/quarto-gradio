@@ -1,6 +1,9 @@
 ---
 title: "Layouts"
+description: "Compose Gradio rows, columns, tabs, and an accordion in one app."
 ---
+
+This coding playground demonstrates Gradio component layout inside the app. Click **Run**, try the image and text tabs, and open the accordion. This layout is separate from the editor and preview arrangement controlled by `gr-layout`.
 
 ```{python}
 import numpy as np

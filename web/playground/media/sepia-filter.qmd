@@ -1,6 +1,9 @@
 ---
 title: "Sepia Filter"
+description: "Apply a NumPy color transform to an image in the browser."
 ---
+
+This coding playground loads a sample image from scikit-learn and applies a sepia matrix with NumPy. Click **Run**, then submit the sample or upload another image.
 
 ```{python}
 import numpy as np

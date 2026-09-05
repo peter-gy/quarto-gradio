@@ -1,6 +1,9 @@
 ---
 title: "Tabbed Interface"
+description: "Group two interfaces and a chat app in one Gradio TabbedInterface."
 ---
+
+This coding playground groups three Gradio apps under tabs. Click **Run**, then switch between the greeting, chat, and farewell interactions.
 
 ```{python}
 import gradio as gr

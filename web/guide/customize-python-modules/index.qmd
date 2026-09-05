@@ -1,51 +1,65 @@
 ---
-title: "📦 Customize Python Modules"
-description: "Learn how to manage Python packages and specify custom dependencies for your browser-based Gradio apps."
----
-
-This guide will give you a brief overview of package management in a browser-based Python environment and how you can specify custom dependencies for your Gradio apps via the `quarto-gradio` extension.
-
-## Available Python Modules
-
-Let's say we want to display a [Plotly](https://plotly.com/python/){target="_blank"} chart in a Gradio app. However, by default, we are only allowed to import Python modules that come with the [![pyodide-logo](../../public/pyodide-logo.png){width=24} Pyodide](https://github.com/pyodide/pyodide){target=_blank} distribution used by Gradio Lite and `plotly` is not one of them.
-
-## Installation via `gradio.requirements`
-
-You can specify any number of Python packages in the `gradio.requirements` metadata.
-
-```md
----
-filters:
-  - gradio
-
+title: Install Python Packages
+description: "Declare pinned app requirements or install a package from Python inside the Gradio Lite browser runtime."
 gradio:
   requirements:
-    - plotly==5.24.0
+    - plotly==5.24.1
 ---
+
+The browser runtime includes Python, Gradio, and packages available through its Pyodide distribution. Declare an **app requirement** when your app needs another installable Python package.
+
+A package is an installable distribution such as `transformers-js-py`. A module is the name used in Python import statements, such as `transformers_js_py`. Their names can differ.
+
+## Choose an installation path
+
+| Path | Use it when | Scope |
+|---|---|---|
+| `gradio.requirements` | The document always needs the package | Every embedded app in the document |
+| `micropip.install()` | The app decides what to install at runtime | The worker that executes that source |
+
+Prefer document requirements for a predictable published app. Pin exact versions so a new package release cannot change app startup without a document change.
+
+## Declare document requirements
+
+Add the requirement to the document's YAML front matter:
+
+```yaml
+gradio:
+  requirements:
+    - "plotly==5.24.1"
 ```
 
-:::{.callout-tip}
-Click on "Submit" to visualize the selected dataset using Plotly.
-:::
+Then define the app:
 
-{{< include install-module-via-requirements.qmd >}}
+````md
+{{< include _install-module-via-requirements.qmd >}}
+````
 
-You can read about supported Python requirement formats in the [Reference](../../reference/) section.
+Choose a dataset and select **Submit**. The app returns a Plotly scatter plot.
 
-## Installation via `micropip`
+{{< include _install-module-via-requirements.qmd >}}
 
-It is also possible to install Python packages via the `micropip` library at runtime. In the interactive example below, we install the `faker` package to generate mock data.
+`gradio.requirements` is document-wide. In a document with several apps, the requirement list is included with every emitted app.
 
-{{< include install-module-via-micropip.qmd >}}
+## Install from Python
 
-## Limitations
+[Micropip](https://micropip.pyodide.org/en/stable/project/usage.html){target="_blank"} is Pyodide's package installer. Use it when the app source needs to control installation directly:
 
-:::{.callout-warning}
-Not every Python package is supported by Pyodide. While `gradio` and many other popular packages (including `numpy`, `scikit-learn`, and `transformers-js`) can be installed in Pyodide, if your app has many dependencies, its worth checking whether whether the dependencies are included in Pyodide, or can be installed with [`micropip`](https://micropip.pyodide.org/en/v0.2.2/project/api.html#micropip.install).
-:::
+{{< include _install-module-via-micropip.qmd >}}
 
-Source: [Gradio Lite Documentation](https://www.gradio.app/guides/gradio-lite#limitations){target="_blank"}
+Choose a data type and count, then submit. The app installs Faker and returns generated rows.
 
-## Next Steps
+## Check compatibility
 
-Having covered the core features of the `quarto-gradio` extension, in the subsequent guides we'll explore more advanced use cases.
+Pyodide can install pure Python wheels and packages built for its WebAssembly environment. A package that requires an unavailable native library will fail to install. Large packages and model downloads also increase first-start time.
+
+When installation fails:
+
+1. Pin a version known to support Pyodide 0.27.3.
+2. Check the [Pyodide package documentation](https://pyodide.org/en/stable/usage/packages-in-pyodide.html){target="_blank"}.
+3. Inspect the visible Python error and browser console.
+4. Confirm that the package and wheel origins are reachable and allow cross-origin requests.
+
+App requirements are separate from the extension's runtime compatibility pins. The latter boot the frozen Gradio Lite environment and are not an author configuration surface.
+
+See [Runtime and Trust](../../concepts/runtime/) for the complete package and network boundary.

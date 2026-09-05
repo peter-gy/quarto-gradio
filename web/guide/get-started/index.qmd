@@ -1,49 +1,84 @@
 ---
-title: "🚀 Get Started"
-description: "This guide will help you get started with the `quarto-gradio` extension via a simple example. You will see how you can iterate on your Gradio app's source code in your local environment, then embed the very same app with no changes into an entirely browser-based environment."
+title: Quickstart
+description: "Install quarto-gradio, render one app, and verify the result in a browser."
 ---
 
-## Installation
+This quickstart creates one Quarto Markdown document and runs its Gradio app in the browser. You need [Quarto 1.6 or newer](https://quarto.org/docs/get-started/), a directory for the document, and network access when the app first starts.
 
-First things first, make sure you have the `quarto-gradio` extension installed:
+## Install the extension
+
+Run this command inside the directory that will contain your document:
 
 ```bash
 quarto add peter-gy/quarto-gradio
 ```
 
-This will allow us to use the `gradio` filter in our Quarto documents.
+Quarto copies the extension into `_extensions/gradio`. Commit that directory with your project so builds use the same extension source.
 
-## Hello World
+## Create the document
 
-We will get started with a simple "Hello World" example written in a `qmd` document.
+Save this source as `hello.qmd`:
 
-### Source Code
+````{.markdown filename="hello.qmd"}
+---
+title: Hello
+filters:
+  - gradio
+execute:
+  enabled: false
+---
 
-We register the `gradio` filter in the document's YAML header and we define a simple Python code block with a basic Gradio interface.
+```{python}
+import gradio as gr
 
-````md
-{{< src-include hello-world.qmd >}}
+def greet(name):
+    return f"Hello {name}!"
+
+demo = gr.Interface(
+    fn=greet,
+    inputs="textbox",
+    outputs="textbox",
+    live=True,
+    flagging_mode="never",
+)
+
+demo.launch()
+```
 ````
 
-### Local Execution
+The `gradio` entry enables the extension's Lua filter. A [Lua filter](https://quarto.org/docs/extensions/filters.html) transforms Quarto's internal document during rendering. `execute.enabled: false` tells Quarto to preserve the Python cell without running it in the local build environment.
 
-Since this is a plain old Python program, it can be executed directly in an interactive Python session using your local, serverful Python interpreter.
+The final `.launch()` call marks the end of the app source. The filter writes the accumulated Python into the HTML page for browser execution.
 
-![Executing the "Hello World" example directly in a local Python session spawned using the "Run Cell" button of the Quarto VSCode extension.](../../public/hello-world-run-cell.gif)
+## Preview the page
 
-### Browser Execution
+Run:
 
-However, thanks to the `gradio` filter, after rendering the document, you can access the very same interface directly from your browser, blending with the theme you have specified. In fact, you can see the example embedded into *this* document right below.
+```{.bash filename="Terminal"}
+quarto preview hello.qmd
+```
 
-{{< include hello-world.qmd >}}
+Quarto opens a local preview and watches the source for changes. For a one-time build, run `quarto render hello.qmd`. The output is `hello.html`.
 
-:::{.callout-tip}
-As you can see, the Gradio interface is fully interactive without a Python server.
-The `gradio` filter also made sure that the Gradio app's CSS is harmonized with your current HTML theme.
+Wait for the embedded app to finish its initial download and startup. Enter a name. The output should update to `Hello <name>!`.
+
+{{< include _hello-world.qmd >}}
+
+## Understand the boundary
+
+The build and the app start at different times:
+
+1. Quarto runs the `gradio` filter and writes HTML.
+2. The browser loads `@gradio/lite@5.45.0` from jsDelivr.
+3. Gradio Lite starts [Pyodide](https://pyodide.org/), which runs Python through WebAssembly in a browser worker.
+4. The worker executes the source and Gradio mounts the app.
+
+The source is visible to readers in the page. Keep credentials, private URLs, and other secrets out of it.
+
+::: {.callout-important appearance="simple"}
+Gradio Lite is archived and frozen at version 5.45.0 in `quarto-gradio`. Check app APIs and packages in the browser even when they work in a newer local Gradio environment.
 :::
 
-## Next Steps
+## Continue
 
-Sometimes you may want to let users to experiment with and modify the Gradio app's source code directly in their browser, seeing changes reflected instantly.
-
-In the next section, we'll explore how to enable just that in an interactive coding playground that lets users edit and run Python code without needing to re-render the document.
+Read [How it Works](../../concepts/how-it-works/) for app boundaries and browser startup. Then build a [coding playground](../enable-coding-playground/) or [install a Python package](../customize-python-modules/).

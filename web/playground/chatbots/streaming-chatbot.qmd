@@ -1,6 +1,9 @@
 ---
 title: "Streaming Chatbot"
+description: "Yield partial chat responses from a Python generator."
 ---
+
+This coding playground streams an echo one character at a time. Click **Run**, send a message, and watch the generator update the response incrementally.
 
 ```{python}
 import time

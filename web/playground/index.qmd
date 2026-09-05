@@ -1,0 +1,43 @@
+---
+title: Example Gallery
+description: "Run and edit text, media, data, layout, chat, and model examples in the browser."
+---
+
+The example gallery shows Gradio APIs that work with the frozen Gradio Lite 5.45.0 browser runtime. Each page is a coding playground. Click **Run** to start the app, change the Python source, then run it again to compare the result.
+
+Examples inherit `playground: true` and a vertical playground layout from this section. Their code cells rely on the site's project-level `gradio` filter and disabled Quarto-side execution. Copy the [Quickstart](../guide/get-started/) front matter when moving a snippet into another project.
+
+## Text
+
+- [Sentence Builder](text/sentence-builder.qmd) combines sliders, choices, and checkboxes into one text result.
+- [Diff Texts](text/diff-texts.qmd) returns categorized spans through `gr.HighlightedText`.
+
+## Media
+
+- [Sepia Filter](media/sepia-filter.qmd) transforms an image with NumPy.
+- [Video Identity](media/video-identity.qmd) accepts and returns a browser-provided video.
+- [Generate Tone](media/generate-tone.qmd) produces an audio array in Python.
+
+## Tables and plots
+
+- [Filter Records](tabular/filter-records.qmd) filters an editable Pandas data frame.
+- [Transpose Matrix](tabular/transpose-matrix.qmd) exchanges matrix rows and columns with NumPy.
+- [Kinematics](tabular/kinematics.qmd) connects sliders to a line plot.
+
+## Component layouts
+
+- [Layouts](design/layouts.qmd) combines rows, columns, tabs, and an accordion.
+- [Tabbed Interface](design/tabbed-interface.qmd) groups several app types under tabs.
+
+## Chat
+
+- [Chatbot](chatbots/chatbot.qmd) returns a synchronous response.
+- [Streaming Chatbot](chatbots/streaming-chatbot.qmd) yields partial responses.
+- [Tool Status Messages](chatbots/chatbot-with-tools.qmd) simulates progress and error metadata for a tool call.
+- [Chatbot with Artifacts](chatbots/chatbot-with-artifacts.qmd) renders a code component beside a chat response.
+
+## External models
+
+- [Sentiment Analysis](transformers/sentiment-analysis.qmd) downloads a Transformers.js model and runs it through a Python wrapper.
+
+These examples run third-party package and model code in the browser. Review [Runtime and Trust](../concepts/runtime/) before publishing adapted versions.

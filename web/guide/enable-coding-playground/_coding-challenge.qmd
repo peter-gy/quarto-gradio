@@ -1,0 +1,30 @@
+In this exercise, implement a function that reverses each word while preserving word order. For example, `Hello World` becomes `olleH dlroW`.
+
+```{python}
+#| gr-playground: true
+#| gr-layout: vertical
+import gradio as gr
+
+def reverse_words(sentence):
+    return "CHANGE ME"
+
+def check_solution(user_input):
+    expected = " ".join(word[::-1] for word in user_input.split())
+    result = reverse_words(user_input)
+    status = "Correct" if result == expected else "Try again"
+    return result, expected, status
+
+with gr.Blocks() as demo:
+    gr.Markdown("# Reverse Words Exercise")
+    input_text = gr.Textbox(label="Sentence", value="Hello World")
+    output_user = gr.Textbox(label="Your output")
+    output_expected = gr.Textbox(label="Expected")
+    status = gr.Textbox(label="Status")
+    gr.Button("Check").click(
+        check_solution,
+        input_text,
+        [output_user, output_expected, status],
+    )
+
+demo.launch()
+```

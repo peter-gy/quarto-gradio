@@ -1,0 +1,24 @@
+---
+title: Guides
+description: "Complete authoring, integration, styling, and publishing tasks with quarto-gradio."
+---
+
+Each guide starts from the same model: Quarto renders Python source into an HTML page, then the reader's browser starts the Gradio app. Begin with the [Quickstart](get-started/) if you have not rendered an app yet.
+
+## Author the app
+
+- [Build a Coding Playground](enable-coding-playground/) adds a Python editor and preview for readers.
+- [Install Python Packages](customize-python-modules/) covers document requirements, Micropip, pinning, and Pyodide compatibility.
+- [Define Multiple Apps](define-multiple-apps/) explains source segments and worker isolation.
+- [Match Document Styles](customize-styles/) separates app color mode from Quarto and Python Gradio themes.
+
+## Integrate a source or output format
+
+- [Use a Jupyter Notebook](use-with-jupyter/) renders notebook code cells into an HTML app.
+- [Use Reveal.js](use-with-revealjs/) places an app or coding playground on presentation slides.
+
+## Publish
+
+- [Publish to Static Hosting](publish/) identifies the generated files, network access, Content Security Policy, and post-deployment browser checks.
+
+Use the [Configuration Reference](../reference/) for exact option lookup and [Troubleshooting](../reference/troubleshooting.qmd) when a render or app startup fails.

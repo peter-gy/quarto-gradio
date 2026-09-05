@@ -1,6 +1,9 @@
 ---
 title: "Video Identity"
+description: "Pass an uploaded video through a Gradio app without changing it."
 ---
+
+This coding playground demonstrates browser video input and playable video output. Click **Run**, choose a video from your device, and submit it. The example adds no remote upload operation.
 
 ```{python}
 import gradio as gr

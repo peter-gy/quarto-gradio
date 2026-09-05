@@ -6,6 +6,11 @@ format:
 
 filters:
   - gradio
+
+execute:
+  enabled: false
+
+search: false
 ---
 
 ## Slide Title

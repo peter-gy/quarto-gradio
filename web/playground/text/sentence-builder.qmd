@@ -1,6 +1,9 @@
 ---
 title: "Sentence Builder"
+description: "Combine several Gradio input components into one generated sentence."
 ---
+
+This coding playground combines a slider, dropdowns, radio buttons, and checkboxes. Click **Run**, change the inputs, and confirm that every selection appears in the generated sentence.
 
 ```{python}
 import gradio as gr

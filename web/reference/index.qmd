@@ -1,55 +1,113 @@
 ---
-title: "Reference"
-description: "Configuration options and technical details of the extension."
+title: Configuration Reference
+description: "Exact defaults, scope, precedence, and emitted behavior for quarto-gradio document metadata and cell options."
 ---
 
-## Supported YAML Metadata
+The `gradio` filter reads the merged Quarto metadata for each document and per-app attributes from `#| gr-*` options on a launch cell. Project `_quarto.yml` supplies defaults, directory `_metadata.yml` overrides project values, and page front matter has the highest metadata precedence.
 
-The `quarto-gradio` extension processes the following YAML metadata:
+## Enable the filter for a project
 
-```yml
-gradio:
-    # @gradio/lite CDN base
-    cdn: "https://cdn.jsdelivr.net/npm/\\@gradio/lite"
-    
-    # @gradio/lite version, defaults to the final release
-    version: "5.45.0"
-    
-    # Deps to pass to <gradio-requirements/>
-    requirements:                                    
-        - plotly==5.24.0
-    
-    # List of attributes to pass to <gradio-lite/> tag
-    attributes:              
-        # Optional: "dark" or "light", defaults to "dark"
-        theme: dark          
-        
-        # Optional: true or false, defaults to false
-        shared-worker: false
-        
-        # Optional: true or false
-        playground: false    
-        
-        # Optional: "horizontal" or "vertical"
-        layout: horizontal   
+Put the filter and browser-execution policy in `_quarto.yml` when every document in a project should inherit them:
+
+```{.yaml filename="_quarto.yml"}
+filters:
+  - gradio
+
+execute:
+  enabled: false
 ```
 
-The extension passes this metadata to the HTML tags defined by the [archived `@gradio/lite` package](https://github.com/gradio-app/gradio-lite){target=_blank}. The default CDN and version resolve to `https://cdn.jsdelivr.net/npm/@gradio/lite@5.45.0`. Keep these defaults together to use the bundled Pyodide compatibility requirements. Set `version` or `cdn` when you control the corresponding archived runtime and dependency set. See the [Gradio Lite 4.44.1 guide](https://gradio.app/4.44.1/guides/gradio-lite){target=_blank} for the element and attribute contracts.
+Document front matter can provide the same settings for one source file. `execute.enabled: false` prevents Quarto from running the Python cell in the build environment.
 
-## Supported Python Requirement Formats
+## Complete document configuration
 
-You can consult the [📦 Customize Python Modules](../guide/customize-python-modules/) guide for an example of how to use the `requirements` metadata.
+```{.yaml filename="_quarto.yml or document front matter"}
+gradio:
+  cdn: "https://cdn.jsdelivr.net/npm/@gradio/lite"
+  version: "5.45.0"
+  requirements:
+    - "plotly==5.24.1"
+  attributes:
+    theme: dark
+    shared-worker: false
+    playground: false
+    layout: horizontal
+```
 
-| Format             | Description                                      | Example                                             |
-|------------------- |--------------------------------------------------|-----------------------------------------------------|
-| Package name       | Just the package name to install latest version  | `plotly`                                            |
-| Package and version| Package with specific version or version range   | `plotly==5.24.0`                                    |
-| URL                | Remote wheel or source distribution              | https://some.cdn.com/plotly-5.24.1-py3-none-any.whl |
+## Document keys
 
-For a deep-dive into the details of Python packages in a browser environment, see the [Pyodide documentation](https://pyodide.org/en/stable/usage/packages-in-pyodide.html){target=_blank}.
+| Key | Type | Default | Scope | Behavior |
+|---|---|---|---|---|
+| `gradio.cdn` | String | `https://cdn.jsdelivr.net/npm/@gradio/lite` | Rendered document | Runtime asset base URL |
+| `gradio.version` | String | `5.45.0` | Rendered document | Appended to the default asset URL as `@5.45.0` |
+| `gradio.requirements` | List of strings | Empty | Rendered document | Emitted in every app's `<gradio-requirements>` element |
+| `gradio.attributes` | Mapping | See below | Rendered document | Forwarded to every `<gradio-lite>` element |
 
-## Document Processing Flow
+Setting `gradio.cdn` without `gradio.version` suppresses the default version suffix. The value must then point to an asset root containing `dist/lite.js` and `dist/lite.css`. Setting both produces `<cdn>@<version>/dist/...`.
 
-The main idea behind this extension is to hook into the lifecycle of the Quarto document at the stage where it is represented as a [Pandoc Abstract Syntax Tree (AST)](https://pandoc.org/filters.html){target=_blank}, collect all the source code from Python code blocks and dynamically construct the appropriate HTML tree by populating the `<gradio-requirements/>` and `<gradio-lite/>` tags.
+The extension's compatibility bootstrap supports the exact default jsDelivr URL and version. A custom URL or version requires an independently verified runtime and package set.
 
-![Document Processing Flow](../public/flow.svg)
+## Tested Gradio Lite attributes
+
+| Attribute | Values | Default | Effect |
+|---|---|---|---|
+| `theme` | `light`, `dark` | `dark` | Selects the app color mode |
+| `shared-worker` | Boolean | `false` | Reuses one Pyodide worker across apps when true |
+| `playground` | Boolean | `false` | Shows a Python editor and app preview when true |
+| `layout` | `horizontal`, `vertical` | Runtime default | Arranges the editor and preview in a coding playground |
+
+The filter forwards other keys without validation. The frozen custom element also recognizes upstream attributes such as `info`, `container`, `embed`, `initial-height`, `eager`, `auto-scroll`, `control-page-title`, and `app-mode`. Those passthrough attributes belong to the archived Gradio Lite 5.45.0 contract and do not have project-specific compatibility tests. Consult the [archived Gradio Lite guide](https://gradio.app/4.44.1/guides/gradio-lite){target="_blank"} for the upstream element model.
+
+## Cell options
+
+Prefix a Gradio Lite attribute with `gr-` on the launch cell:
+
+```python
+#| gr-theme: light
+#| gr-playground: true
+#| gr-layout: vertical
+demo.launch()
+```
+
+The filter removes `gr-` and forwards the result to that app's `<gradio-lite>` element. A cell option overrides the matching value in `gradio.attributes`.
+
+`gradio.cdn`, `gradio.version`, and `gradio.requirements` have no cell-level form.
+
+Standard Quarto cell options still apply. For example, `#| echo: false` hides the authored launch cell from the rendered page while the `gradio` filter still uses its source for the embedded app.
+
+## Boolean serialization
+
+True values produce a bare HTML attribute. False values omit the attribute:
+
+```yaml
+gradio:
+  attributes:
+    playground: true
+    shared-worker: false
+```
+
+produces a `<gradio-lite playground>` element with no `shared-worker` attribute.
+
+## App requirements
+
+Each list item is passed to Gradio Lite as a Python package requirement. Prefer exact pins:
+
+```yaml
+gradio:
+  requirements:
+    - "plotly==5.24.1"
+```
+
+Requirement strings can use package specifiers or direct wheel URLs accepted by the frozen Pyodide and Micropip environment. Package availability, wheel compatibility, cross-origin access, and startup cost remain the author's responsibility.
+
+Read [Install Python Packages](../guide/customize-python-modules/) for a complete example.
+
+## Supported formats
+
+The documented source and output combinations are Quarto Markdown to HTML, Quarto Markdown to Reveal.js, and Jupyter notebooks to HTML. See [Runtime and Trust](../concepts/runtime/) for the evidence and compatibility boundary.
+
+## Related pages
+
+- [How quarto-gradio Works](../concepts/how-it-works/)
+- [Runtime and Trust](../concepts/runtime/)
+- [Troubleshooting](troubleshooting.qmd)

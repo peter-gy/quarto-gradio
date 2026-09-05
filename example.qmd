@@ -1,16 +1,18 @@
 ---
-title: "Quarto x Gradio Lite"
+title: "Hello with quarto-gradio"
 
 filters:
   - gradio
+
+execute:
+  enabled: false
 ---
 
-This example is running entirely in your browser. No Python servers were harmed (or needed).
+This app runs in the reader's browser after Quarto renders the page. It does not need a Python application server after publishing.
 
 For more detailed examples, please refer to the [live docs](https://quarto-gradio.peter.gy).
 
 ```{python}
-#| gr-theme: light
 import gradio as gr
 
 def greet(name):

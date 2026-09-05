@@ -9,9 +9,14 @@ format:
 filters:
   - gradio
 
+execute:
+  enabled: false
+
+search: false
+
 gradio:
   requirements:
-    - transformers-js-py
+    - transformers-js-py==0.19.10
 ---
 
 ## 🤗 Sentiment Analysis via Transformers.js

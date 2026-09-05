@@ -1,13 +1,24 @@
 project:
   type: website
   output-dir: _site
+  resources:
+    - "guide/use-with-jupyter/notebook-gradio.ipynb"
+  render:
+    - "*.qmd"
+    - "concepts/**/*.qmd"
+    - "guide/index.qmd"
+    - "guide/*/index.qmd"
+    - "guide/use-with-jupyter/notebook-gradio.ipynb"
+    - "guide/use-with-revealjs/reveal-gradio-lite*.qmd"
+    - "playground/**/*.qmd"
+    - "reference/**/*.qmd"
 
 website:
-  title: "Quarto 🔹🔸 Gradio"
+  title: "quarto-gradio"
   favicon: public/favicon.png
   open-graph:
     locale: en_US
-    site-name: "Quarto 🔹🔸 Gradio"
+    site-name: "quarto-gradio"
   twitter-card: true
   site-url: https://quarto-gradio.peter.gy
   repo-url: https://github.com/peter-gy/quarto-gradio
@@ -17,43 +28,67 @@ website:
 
   search:
     show-item-context: true
+    type: overlay
+  llms-txt: true
 
   sidebar:
     style: docked
+    collapse-level: 2
     logo: public/quarto-gradio.png
-    logo-alt: "Quarto-Gradio logo"
+    logo-alt: "quarto-gradio logo"
     background: dark
     alignment: center
     contents:
-      - text: "Overview"
+      - section: "Start here"
         href: index.qmd
-
-      - section: "Guide"
         contents:
-          - text: "🚀 Get Started"
+          - text: "Overview"
+            href: index.qmd
+
+          - text: "Quickstart"
             href: guide/get-started/index.qmd
 
-          - text: "🛝 Enable Coding Playground"
-            href: guide/enable-coding-playground/index.qmd
-          
-          - text: "📦 Customize Python Modules"
-            href: guide/customize-python-modules/index.qmd
-          
-          #- text: "🎨 Customize Styles"
-          #  href: guide/customize-styles/index.qmd
-          
-          #- text: "📚 Define Multiple Apps"
-          #  href: guide/define-multiple-apps/index.qmd
+          - text: "How it Works"
+            href: concepts/how-it-works/index.qmd
 
-          - text: "💡 Use with Reveal.js"
-            href: guide/use-with-revealjs/index.qmd
-          
-          #- text: "📓 Use with Jupyter"
-          #  href: guide/use-with-jupyter/index.qmd
-        
-      - section: "Playground"
+          - text: "Runtime and Trust"
+            href: concepts/runtime/index.qmd
+
+      - text: "---"
+
+      - section: "Guides"
+        href: guide/index.qmd
         contents:
-          - section: "📝 Text"
+          - text: "Build a Coding Playground"
+            href: guide/enable-coding-playground/index.qmd
+
+          - text: "Install Python Packages"
+            href: guide/customize-python-modules/index.qmd
+
+          - text: "Define Multiple Apps"
+            href: guide/define-multiple-apps/index.qmd
+
+          - text: "Use a Jupyter Notebook"
+            href: guide/use-with-jupyter/index.qmd
+
+          - text: "Use Reveal.js"
+            href: guide/use-with-revealjs/index.qmd
+
+          - text: "Match Document Styles"
+            href: guide/customize-styles/index.qmd
+
+          - text: "Publish to Static Hosting"
+            href: guide/publish/index.qmd
+
+      - text: "---"
+
+      - section: "Examples"
+        href: playground/index.qmd
+        contents:
+          - text: "Example Gallery"
+            href: playground/index.qmd
+
+          - section: "Text"
             contents:
               - text: "Sentence Builder"
                 href: playground/text/sentence-builder.qmd
@@ -61,7 +96,7 @@ website:
               - text: "Diff Texts"
                 href: playground/text/diff-texts.qmd
           
-          - section: "🎬 Media"
+          - section: "Media"
             contents:
               - text: "Sepia Filter"
                 href: playground/media/sepia-filter.qmd
@@ -72,7 +107,7 @@ website:
               - text: "Generate Tone"
                 href: playground/media/generate-tone.qmd
           
-          - section: "📊 Tabular"
+          - section: "Tables and Plots"
             contents:
               - text: "Filter Records"
                 href: playground/tabular/filter-records.qmd
@@ -83,7 +118,7 @@ website:
               - text: "Kinematics"
                 href: playground/tabular/kinematics.qmd
           
-          - section: "🎨 Design"
+          - section: "Component Layouts"
             contents:
               - text: "Layouts"
                 href: playground/design/layouts.qmd
@@ -91,7 +126,7 @@ website:
               - text: "Tabbed Interface"
                 href: playground/design/tabbed-interface.qmd
           
-          - section: "🤖 Chatbots"
+          - section: "Chat"
             contents:
               - text: "Chatbot"
                 href: playground/chatbots/chatbot.qmd
@@ -99,24 +134,31 @@ website:
               - text: "Streaming Chatbot"
                 href: playground/chatbots/streaming-chatbot.qmd
 
-              - text: "Chatbot with Tools"
+              - text: "Tool Status Messages"
                 href: playground/chatbots/chatbot-with-tools.qmd
 
               - text: "Chatbot with Artifacts"
                 href: playground/chatbots/chatbot-with-artifacts.qmd
           
-          - section: "🤗 Transformers"
+          - section: "External Models"
             contents:
               - text: "Sentiment Analysis"
                 href: playground/transformers/sentiment-analysis.qmd
 
+      - text: "---"
 
-      
-      - text: "Reference"
+      - section: "Reference"
         href: reference/index.qmd
+        contents:
+          - text: "Configuration"
+            href: reference/index.qmd
+
+          - text: "Troubleshooting"
+            href: reference/troubleshooting.qmd
     
     tools:
       - icon: github
+        aria-label: Repository links
         menu:
           - text: Source Code
             icon: "code"
@@ -138,13 +180,17 @@ website:
     right: 
       - icon: github
         href: https://l.peter.gy/github
+        aria-label: GitHub profile
       - icon: linkedin 
         href: https://l.peter.gy/in
+        aria-label: LinkedIn profile
       - icon: globe 
         href: https://peter.gy
+        aria-label: Personal website
 
 format:
   html:
+    highlight-style: a11y
     toc: true
     code-copy: true
     code-fold: true
@@ -153,8 +199,6 @@ format:
     css: styles.css
     include-in-header:
       - analytics.html
-    include-after-body:
-      - js.html
     grid:
       sidebar-width: 300px
       body-width: 800px
@@ -162,9 +206,6 @@ format:
 
 filters:
   - gradio
-
-shortcodes:
-  - tools/src-include.lua
 
 execute:
   enabled: false

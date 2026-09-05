@@ -1,0 +1,27 @@
+```{python}
+import gradio as gr
+import plotly.express as px
+
+datasets = {
+    "iris": px.data.iris(),
+    "gapminder": px.data.gapminder(),
+    "tips": px.data.tips(),
+}
+
+def plot_figure(dataset):
+    data = datasets[dataset]
+    return px.scatter(
+        data,
+        x=data.columns[0],
+        y=data.columns[1],
+        color=data.columns[-1],
+        title=f"{dataset.title()} dataset",
+    )
+
+gr.Interface(
+    fn=plot_figure,
+    inputs=gr.Dropdown(choices=list(datasets), value="iris"),
+    outputs="plot",
+    flagging_mode="never",
+).launch()
+```

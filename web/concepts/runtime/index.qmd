@@ -1,0 +1,68 @@
+---
+title: Runtime and Trust
+description: "Understand the frozen Gradio Lite runtime, browser execution, network access, packages, and security boundaries."
+---
+
+`quarto-gradio` pins its browser runtime to `@gradio/lite@5.45.0`, the final release before the [Gradio Lite repository was archived](https://github.com/gradio-app/gradio-lite){target="_blank"} on September 11, 2025.
+
+## What is frozen
+
+The default path combines:
+
+- `@gradio/lite@5.45.0`
+- Python Gradio 5.45.0 inside the browser runtime
+- `gradio_client` 1.13.0
+- Pyodide 0.27.3
+- extension-owned package versions installed for Pyodide compatibility
+
+The extension's browser bootstrap is matched to the exact default jsDelivr worker URL and frozen worker source. Changing `gradio.cdn` or `gradio.version` leaves the tested compatibility path. Use those settings only when you operate and verify the complete replacement runtime.
+
+The Gradio package in a local Python environment can be newer. Browser compatibility is determined by the frozen browser runtime, so verify each app in the rendered page.
+
+## What still uses the network
+
+A static deployment does not run a Python application server. The reader's browser normally downloads:
+
+- Gradio Lite JavaScript, CSS, and its worker from jsDelivr
+- Pyodide runtime files
+- extension-owned runtime compatibility pins and their wheels
+- app requirements and their wheels
+- model, media, data, or API resources requested by the app
+
+The first startup can take longer than later visits because the browser has not cached these assets. An offline page or restrictive network can remain at loading or report a runtime error.
+
+## Code and package trust
+
+The rendered HTML contains the complete Python source. Do not embed secrets, credentials, private endpoints, or privileged tokens.
+
+App requirements execute third-party package code inside the browser worker. Pin each package version, review its source and distribution, and test it with Pyodide 0.27.3. Packages that depend on unsupported native binaries may not install.
+
+The page also loads remote JavaScript into the document. The runtime URL is versioned, but the generated script and stylesheet tags have no Subresource Integrity hashes and the assets are not vendored. The archived runtime receives no upstream security fixes, so publishers should evaluate this boundary for their audience and deployment.
+
+## Browser workers
+
+The default `shared-worker: false` starts one dedicated worker and one Python environment per app. State, installed modules, and the virtual filesystem are isolated.
+
+With `shared-worker: true`, apps can reuse one Pyodide interpreter and installed package environment. Each app receives a separate app ID, working directory, and fresh `__main__` module. Interpreter-global module state can still couple apps. When a browser lacks `SharedWorker`, Gradio Lite warns and falls back to a dedicated worker. Test the full document before publishing.
+
+Removing an app element or leaving the page terminates its worker. A page reload starts the browser runtime and app source again. Browser caches can shorten asset downloads, but Python memory from the previous page is not a persistence contract.
+
+## Browser support
+
+Use a current browser with WebAssembly, module scripts, blob workers, and the network APIs required by the app. The archived Gradio Lite interface was designed primarily for desktop browsers. Test touch controls, media inputs, editor layout, and memory use before treating a mobile browser as supported for a specific document.
+
+## Content Security Policy
+
+A restrictive [Content Security Policy](https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP) must allow the runtime's module scripts, styles, network requests, blob workers, and WebAssembly execution. The exact allowlist depends on the runtime asset host and every package or resource the app fetches.
+
+Use the browser console and network panel to identify a blocked origin. See [Troubleshooting](../../reference/troubleshooting.qmd) for symptom-based checks.
+
+## Supported delivery matrix
+
+| Source format | Output format | Status |
+|---|---|---|
+| Quarto Markdown (`.qmd`) | HTML page | Supported and render-tested |
+| Quarto Markdown (`.qmd`) | Reveal.js presentation | Supported by the included presentation examples |
+| Jupyter notebook (`.ipynb`) | HTML page | Supported by the rendered notebook example |
+
+Other source and output formats require focused render and browser validation before they become documented contracts.

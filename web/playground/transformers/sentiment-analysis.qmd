@@ -1,12 +1,15 @@
 ---
 title: "Sentiment Analysis"
+description: "Download a Transformers.js sentiment model and run it through a Python pipeline."
 gradio:
   requirements:
-    - transformers-js-py
+    - transformers-js-py==0.19.10
   attributes:
     playground: true
     layout: "vertical"
 ---
+
+This coding playground downloads a sentiment-analysis model after the Python package starts. Click **Run**, then edit an example sentence. The first run requires network access and can take longer while the model is downloaded and cached.
 
 ```{python}
 import gradio as gr

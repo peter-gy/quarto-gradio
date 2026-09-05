@@ -1,6 +1,9 @@
 ---
 title: "Kinematics"
+description: "Connect two sliders to a Gradio line plot of projectile motion."
 ---
+
+This coding playground connects speed and angle controls to a line plot. Click **Run**, then move either slider to update the trajectory.
 
 ```{python}
 import pandas as pd

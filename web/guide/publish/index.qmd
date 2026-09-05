@@ -1,0 +1,38 @@
+---
+title: Publish to Static Hosting
+description: "Render quarto-gradio pages as static files and deploy them with the extension assets they require."
+---
+
+A rendered `quarto-gradio` page can be served by static hosting because Python executes in the reader's browser. The deployment must include Quarto's copied extension assets and allow access to the remote runtime and package origins.
+
+## Render a site
+
+For a Quarto website project, run:
+
+```{.bash filename="Terminal"}
+quarto render
+```
+
+Publish the complete output directory configured by your project, commonly `_site`. Keep its `site_libs/quarto-contrib/quarto-gradio-*` directory with the HTML pages. It contains the compatibility script, stylesheet, and runtime compatibility pins.
+
+Do not copy one HTML file by itself from a non-self-contained site build.
+
+## Preview through HTTP
+
+Use `quarto preview` while authoring. Browser workers and module scripts should be tested through an HTTP origin, which matches the published environment.
+
+## Deploy with GitHub Pages
+
+Follow Quarto's [GitHub Pages guide](https://quarto.org/docs/publishing/github-pages.html){target="_blank"} for the repository and Pages configuration. A deployment workflow should install the project toolchain, render the site from a clean checkout, upload the complete output directory, and deploy that artifact.
+
+After deployment, open the public URL and interact with representative apps. A successful static build does not prove that the archived runtime, worker, and package downloads still start in a browser.
+
+## Check the deployment boundary
+
+- Confirm extension assets load from the deployed base path.
+- Confirm jsDelivr, Pyodide, package, model, and data origins are reachable.
+- Confirm the site's Content Security Policy permits the required scripts, styles, network requests, blob workers, and WebAssembly.
+- Inspect the browser console and failed network requests.
+- Keep secrets out of the embedded Python source.
+
+See [Runtime and Trust](../../concepts/runtime/) for the complete browser boundary and [Troubleshooting](../../reference/troubleshooting.qmd) for failure symptoms.

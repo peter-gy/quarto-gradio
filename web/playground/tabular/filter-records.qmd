@@ -1,6 +1,9 @@
 ---
 title: "Filter Records"
+description: "Filter an editable Pandas data frame with a Gradio dropdown."
 ---
+
+This coding playground passes an editable table to Pandas and filters it by the selected gender value. Click **Run**, choose `M`, `F`, or `O`, then submit to return matching rows.
 
 ```{python}
 import gradio as gr
@@ -33,7 +36,7 @@ demo = gr.Interface(
         gr.Dropdown(["M", "F", "O"], value="M"),
     ],
     "dataframe",
-    description="Enter gender as 'M', 'F', or 'O' for other.",
+    description="Choose M, F, or O to filter the records.",
     flagging_mode="never",
 )
 

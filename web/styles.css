@@ -30,10 +30,45 @@ nav.quarto-page-breadcrumbs {
   margin-bottom: 1em;
 }
 
+nav.quarto-page-breadcrumbs .breadcrumb-item,
+nav.quarto-page-breadcrumbs .breadcrumb-item a {
+  color: #adb5bd !important;
+}
+
 p, li {
   line-height: 1.8;
 }
 
 .description {
   margin-top: .75em !important;
+}
+
+details summary,
+.nav-page-text {
+  color: #adb5bd !important;
+}
+
+.edgeLabel p {
+  color: #212529 !important;
+}
+
+.mermaid-js svg {
+  display: block;
+  margin-inline: auto;
+}
+
+.nodeLabel p {
+  color: #f8f9fa !important;
+}
+
+.node rect,
+.node polygon,
+.node path,
+.cluster rect {
+  fill: #2b3035 !important;
+  stroke: #adb5bd !important;
+}
+
+.cluster-label p {
+  color: #f8f9fa !important;
 }
