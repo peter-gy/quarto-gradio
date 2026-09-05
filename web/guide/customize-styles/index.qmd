@@ -1,4 +1,38 @@
 ---
-title: "🎨 Customize Styles"
+title: Match Document Styles
+description: "Choose the embedded app color mode and understand the CSS boundary between Quarto and Gradio."
 ---
 
+The `theme` Gradio Lite attribute selects the app color mode. It does not select the Quarto document theme or a Python Gradio theme object.
+
+## Set one app's color mode
+
+```python
+#| gr-theme: light
+demo.launch()
+```
+
+Use `dark` for a dark app surface:
+
+```python
+#| gr-theme: dark
+demo.launch()
+```
+
+## Set a document default
+
+```yaml
+gradio:
+  attributes:
+    theme: light
+```
+
+Every app inherits this value. A launch-cell option such as `#| gr-theme: dark` overrides it for that app.
+
+## Know what the extension aligns
+
+The extension stylesheet handles a small integration boundary. It prevents Bootstrap's `.column` class from resizing Gradio columns, supplies a visible loading border, hides the embedded Gradio footer, aligns the app surface background, and provides a system monospace fallback.
+
+It does not translate arbitrary Quarto theme tokens into Gradio component styles. Use Gradio's Python APIs for component-specific styling and test the result inside the rendered Quarto page.
+
+Inspect both light and dark document themes at desktop and narrow widths. See the [configuration reference](../../reference/) for scope and precedence.

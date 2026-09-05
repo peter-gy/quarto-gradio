@@ -1,18 +1,43 @@
 ---
-title: Overview
-description: "A Quarto extension enabling the embedding of serverless Gradio Lite apps into HTML documents."
+title: Build Gradio apps into Quarto pages
+description: "quarto-gradio runs embedded Python Gradio apps in the reader's browser from static HTML documents."
 ---
 
-This website is meant to provide a hands-on guide to making the most out of integrating [![quarto-logo](public/quarto-logo.png){width=24} Quarto](https://quarto.org){target=_blank} and [![gradio-logo](public/gradio-logo.png){width=24} Gradio Lite](https://gradio.app/4.44.1/guides/gradio-lite){target=_blank} for embedding interactive Python applications into your HTML documents. If these docs do not answer all of your questions, please don't hesitate to [start a new discussion](https://github.com/peter-gy/quarto-gradio/discussions){target=_blank} on the GitHub repository.
+`quarto-gradio` is a [Quarto](https://quarto.org/) extension for publishing Python [Gradio](https://www.gradio.app/) apps inside HTML pages and [Reveal.js](https://revealjs.com/) presentations. A reader opens the published page, the browser starts Python through [Pyodide](https://pyodide.org/), and the app becomes interactive without a Python application server.
 
-:::{.callout-important}
-The Gradio team [archived Gradio Lite](https://github.com/gradio-app/gradio-lite){target=_blank} on September 11, 2025. `quarto-gradio` pins its browser runtime to the final `@gradio/lite` release, `5.45.0`, so rendered documents use a fixed version of the archived package. Treat the runtime as frozen and run code and dependencies you trust.
+{{< include guide/get-started/_hello-world.qmd >}}
+
+Type a name above to see the app respond. The source that creates this app is the same source shown in the [Quickstart](guide/get-started/).
+
+::: {.callout-important appearance="simple"}
+The Gradio team [archived Gradio Lite](https://github.com/gradio-app/gradio-lite){target="_blank"} on September 11, 2025. `quarto-gradio` pins its browser runtime to the final `@gradio/lite` release, `5.45.0`. The runtime receives no upstream fixes. Use trusted app code and pinned Python packages.
 :::
 
-Please keep in mind that the guides focus specifically on usage and customization of the `quarto-gradio` extension. While efforts are made to articulate the interplay of components as clearly as possible, familiarity with Quarto, Python, Gradio and - to a certain extent - [![pyodide-logo](public/pyodide-logo.png){width=24} Pyodide](https://github.com/pyodide/pyodide){target=_blank} will make it easier to follow the examples.
+## What happens when a page opens
 
-::: {.callout-tip}
-In case you are interested in the extension's internals and technical details covering each of the components at play, you can get an overview in the [Reference](/reference/) section.
-:::
+```{mermaid}
+%%| fig-cap: "quarto-gradio renders app source into HTML, then starts the app in the reader's browser."
+%%| fig-alt: "Flow from a Quarto source document through the quarto-gradio filter to rendered HTML, then through Gradio Lite and Pyodide to an interactive Gradio app."
+flowchart TD
+  build["Build time<br/>Quarto source to filter to HTML"]
+  browser["Browser time<br/>Gradio Lite to Pyodide to app"]
+  build -->|reader opens page| browser
+```
 
-If you prefer to familiarize yourself with the Gradio API in an online environment, you can head over to the [🛝 Playground](/playground/tabular/kinematics.html), otherwise feel free to [🚀 Get Started](/guide/get-started/) with the basics of the extension.
+Quarto renders the source document. The browser later downloads the runtime, installs app requirements, executes the Python source in a worker, and mounts the interface. This split lets the generated files deploy to static hosting. It also means first startup needs network access and the Python source must not contain secrets.
+
+Read [How it Works](concepts/how-it-works/) for the complete model or [Runtime and Trust](concepts/runtime/) for version, network, and security boundaries.
+
+## Choose a path
+
+| Goal | Start here |
+|---|---|
+| Render a first app | [Quickstart](guide/get-started/) |
+| Let readers edit the Python source | [Build a Coding Playground](guide/enable-coding-playground/) |
+| Use Plotly, Faker, or another package | [Install Python Packages](guide/customize-python-modules/) |
+| Put several apps in one document | [Define Multiple Apps](guide/define-multiple-apps/) |
+| Author from a notebook | [Use a Jupyter Notebook](guide/use-with-jupyter/) |
+| Present an app on slides | [Use Reveal.js](guide/use-with-revealjs/) |
+| Find a working variation | [Example Gallery](playground/) |
+| Look up an option | [Configuration Reference](reference/) |
+| Diagnose a failure | [Troubleshooting](reference/troubleshooting.qmd) |

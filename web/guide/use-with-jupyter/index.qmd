@@ -1,4 +1,60 @@
 ---
-title: "📓 Use with Jupyter"
+title: Use a Jupyter Notebook
+description: "Render Python notebook cells as a browser-run Gradio app while keeping Quarto-side execution disabled."
 ---
 
+`quarto-gradio` can collect Python code cells from a Jupyter notebook and emit an embedded app in HTML output. A standalone notebook can put its Quarto YAML front matter in the first raw cell. Project `_quarto.yml` or directory `_metadata.yml` can provide the same document settings.
+
+## Configure the notebook
+
+In JupyterLab, create a raw cell at the top of the notebook and enter:
+
+```{.yaml filename="First raw cell"}
+---
+title: Notebook app
+filters:
+  - gradio
+execute:
+  enabled: false
+---
+```
+
+A [raw YAML front matter cell](https://quarto.org/docs/tools/jupyter-lab.html){target="_blank"} supplies Quarto document metadata without becoming Python source. `execute.enabled: false` preserves the notebook code cells for browser execution during the published render.
+
+Add a Python code cell:
+
+```{.python filename="Python code cell"}
+import gradio as gr
+
+def greet(name):
+    return f"Hello {name}!"
+
+gr.Interface(greet, "textbox", "textbox").launch()
+```
+
+## Render the notebook
+
+From the notebook directory, run:
+
+```{.bash filename="Terminal"}
+quarto preview notebook-gradio.ipynb
+```
+
+The rendered HTML page starts the app in the browser. The same launch-cell boundary applies to notebook cells. Definitions before `.launch()` join the current app source, and source after a launch begins the next app.
+
+<iframe src="./notebook-gradio.html" title="Jupyter notebook rendered with an embedded quarto-gradio app" width="100%" height="500px"></iframe>
+
+Open the [rendered notebook example](notebook-gradio.html){target="_blank"} or <a href="./notebook-gradio.ipynb" download>download its notebook source</a>.
+
+## Develop locally
+
+You can also run cells in a local Jupyter kernel while authoring. That local environment and the browser environment are different:
+
+- The local kernel uses your installed Python and Gradio packages.
+- The published page uses Gradio Lite 5.45.0 and Pyodide 0.27.3.
+
+Keep the source within APIs supported by the frozen browser runtime. Verify the rendered app after local notebook execution succeeds.
+
+The filter replaces the launch cell's rendered output with its source cell and embedded app. Saved notebook outputs attached to that launch cell do not appear in the published page.
+
+See [How quarto-gradio Works](../../concepts/how-it-works/) for source segmentation and [Runtime and Trust](../../concepts/runtime/) for version compatibility.

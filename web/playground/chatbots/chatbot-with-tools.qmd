@@ -1,6 +1,9 @@
 ---
-title: "Chatbot with Tools"
+title: "Tool Status Messages"
+description: "Simulate tool progress, failure, and success metadata in a Gradio chatbot."
 ---
+
+This coding playground simulates a weather tool trace with hard-coded messages. It does not call a weather service. Click **Run**, then select the button to inspect progress, failure, and success metadata.
 
 ```{python}
 import gradio as gr

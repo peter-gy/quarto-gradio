@@ -1,6 +1,9 @@
 ---
 title: "Transpose Matrix"
+description: "Transpose an editable numeric matrix with NumPy."
 ---
+
+This coding playground receives a Gradio data frame as a NumPy array. Click **Run**, edit the matrix or choose an example, and submit to exchange its rows and columns.
 
 ```{python}
 import numpy as np

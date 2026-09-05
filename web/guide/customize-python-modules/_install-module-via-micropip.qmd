@@ -1,0 +1,35 @@
+```{python}
+#| gr-playground: true
+import micropip
+await micropip.install("faker==37.8.0")
+
+import gradio as gr
+import pandas as pd
+from faker import Faker
+
+fake = Faker()
+generators = {
+    "Name": fake.name,
+    "Address": fake.address,
+    "Email": fake.email,
+    "Phone": fake.phone_number,
+    "Job": fake.job,
+}
+
+def generate_data(data_type, count):
+    rows = [
+        {"#": index + 1, "Data": generators[data_type]()}
+        for index in range(count)
+    ]
+    return pd.DataFrame(rows)
+
+demo = gr.Interface(
+    fn=generate_data,
+    inputs=[
+        gr.Dropdown(list(generators), value="Name"),
+        gr.Slider(1, 10, value=3, step=1),
+    ],
+    outputs=gr.Dataframe(wrap=True),
+)
+demo.launch()
+```

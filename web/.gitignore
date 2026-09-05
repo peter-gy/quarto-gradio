@@ -3,3 +3,4 @@ _site
 
 /.quarto/
 !*.html
+**/*.quarto_ipynb

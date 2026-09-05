@@ -1,67 +1,92 @@
 ---
-title: "🛝 Enable Coding Playground"
-description: "This guide will show you how to convert your Gradio app into a coding playground embedded in your Quarto document. Along the way, you will also learn how to specify custom options for your embedded app that the `quarto-gradio` extension will understand and apply."
----
-
-## Specifying Attributes
-
-Fortunately, the [@gradio/lite](https://www.npmjs.com/package/@gradio/lite){target=_blank} library does all the heavy lifting for us under the hood. All we need to do is to pass the `playground` attribute to the internal `<gradio-lite/>` HTML tag, as the [Gradio Lite documentation](https://www.gradio.app/guides/gradio-lite#code-and-demo-playground){target=_blank} describes.
-
-The `quarto-gradio` extension allows you to specify attributes both at the document level in YAML metadata and at the code block level using the `#|` prefix in comments.
-
-### Document Level
-
-Specifying attributes in the document frontmatter is the easiest way to apply configuration to all Gradio apps in your document.
-
-````md
-{{< src-include attributes-doc.qmd >}}
-````
-
-Thanks to the presence of `playground: true` in the `gradio.attributes` metadata, our Gradio app will be rendered in its interactive mode.
-
-{{< include attributes-doc.qmd >}}
-
-:::{.py-2}
-:::
-
-The extension reads all key-value pairs from `gradio.attributes` and passes them to the `<gradio-lite/>` tag as HTML attributes.
-
-That is, the following YAML metadata
-
-```yml
+title: Build a Coding Playground
+description: "Add an editable Python source panel to an embedded Gradio app and control the editor layout."
 gradio:
   attributes:
     playground: true
+    layout: vertical
+---
+
+A coding playground places a Python editor beside the Gradio app preview. Readers can change the source and run it again without rebuilding the Quarto document.
+
+## Enable one playground
+
+Add `gr-playground: true` to the Python launch cell:
+
+````{.markdown filename="playground.qmd"}
+---
+filters:
+  - gradio
+execute:
+  enabled: false
+---
+
+```{python}
+#| gr-playground: true
+#| gr-layout: vertical
+import gradio as gr
+
+gr.Interface(
+    fn=lambda name: f"Hi {name}!",
+    inputs="textbox",
+    outputs="textbox",
+).launch()
 ```
-
-will prompt the extension to generate the following HTML tag:
-
-```html
-<gradio-lite playground>...</gradio-lite>
-```
-
-### Code Block Level
-
-In some cases it is desired to specify attributes on a per-code block basis. This can be done using the `#|` prefix in comments.
-An important details is that attribute names must be prefixed with `gr-` to avoid conflicts with other Quarto attributes.
-
-````md
-{{< src-include attributes-block.qmd >}}
 ````
 
-Just as above, the `playground` attribute is recognized by the extension and it makes sure that the Gradio app is rendered in its interactive mode. In addition, as the `layout` attribute is specified to be vertical via `#| gr-layout: vertical`, the code editor and the resulting app are laid out vertically instead of the default horizontal layout.
+{{< include _attributes-block.qmd >}}
 
-{{< include attributes-block.qmd >}}
+Click **Run** in the editor to start or rerun the app. Change the greeting and run the source again to verify that the preview updates.
 
-## Use Case: Online Coding Challenge
+`gr-layout: vertical` stacks the editor above the preview. `horizontal` places them side by side. Vertical layout is easier to use in a narrow content column.
 
-Thanks to this embedding mechanism, it is straightforward to create online coding challenges and bite-sized exercises backed by a Gradio UI.
-If you use Quarto for educational content where writing Python in *any* way is required, this might be a good way to make your content more interactive and keep your audience engaged.
+## Enable every playground in a document
 
-### Challenge: Reverse Words
+Put the attribute in document metadata when every app should expose its source editor:
 
-{{< include coding-challenge.qmd >}}
+````{.markdown filename="playgrounds.qmd"}
+---
+filters:
+  - gradio
+execute:
+  enabled: false
+gradio:
+  attributes:
+    playground: true
+---
 
-## Next Steps
+```{python}
+import gradio as gr
 
-So far, than only non-standard Python module our examples used was `gradio`. We clearly want to take advantage of Python's rich ecosystem of libraries, so in the next guide we will cover how to install custom Python packages to our in-browser Python environment.
+gr.Interface(
+    fn=lambda name: f"Hi {name}!",
+    inputs="textbox",
+    outputs="textbox",
+).launch()
+```
+````
+
+{{< include _attributes-doc.qmd >}}
+
+Document metadata supplies a default to every app. A cell option on a launch cell overrides the matching document-wide attribute:
+
+```python
+#| gr-playground: false
+demo.launch()
+```
+
+The `gr-` prefix belongs to the authored cell option. The filter removes it and emits the `playground` attribute on `<gradio-lite>`.
+
+## Use playgrounds for exercises
+
+The editor can hold a small exercise and its runnable checks:
+
+{{< include _coding-challenge.qmd >}}
+
+Keep the starting code small and make the expected interaction explicit. The Python source is delivered to every reader, so a playground is not a place for hidden solutions or secrets.
+
+## Runtime behavior
+
+The playground uses the same frozen Gradio Lite runtime as an embedded app. Running edited code recreates the app inside the browser environment. Package installation, worker isolation, network access, and compatibility constraints still apply.
+
+See the [configuration reference](../../reference/) for attribute scope and precedence. Read [Runtime and Trust](../../concepts/runtime/) before adding remote packages or changing the runtime.

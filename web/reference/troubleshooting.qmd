@@ -1,0 +1,84 @@
+---
+title: Troubleshooting
+description: "Diagnose Quarto render failures, missing apps, worker startup errors, package failures, and deployment problems."
+---
+
+First decide whether the failure occurs during **Quarto render** or during **app startup in the browser**. The two stages have different evidence and recovery paths.
+
+## Quarto cannot find the filter
+
+**Symptom:** rendering reports that the `gradio` filter is missing.
+
+**Check:** confirm `_extensions/gradio/_extension.yml` exists relative to the project and the source enables:
+
+```yaml
+filters:
+  - gradio
+```
+
+Run `quarto add peter-gy/quarto-gradio` from the project directory when the extension is absent.
+
+## The page has no embedded app
+
+**Symptom:** the code cell appears, but no app or loading surface follows it.
+
+**Check:** confirm the final executable Python cell contains the literal spelling `.launch(`. The current filter does not detect `.launch (` with a space or an indirect helper that hides the call.
+
+Confirm the cell is Python and the output format is HTML or Reveal.js. Run Quarto with debug logging or set `QUARTO_GRADIO_DEBUG=1` to inspect `<input-base>.debug.html` in the render process working directory.
+
+## The app remains on loading
+
+**Symptom:** the Gradio shell appears but startup never completes.
+
+**Check:** open browser developer tools. Inspect console errors and failed network requests for Gradio Lite, its worker, Pyodide, `runtime-requirements.txt`, or package wheels.
+
+Serve the page through `quarto preview` or another HTTP server. Check network policy and Content Security Policy for remote module scripts, styles, connections, blob workers, and WebAssembly.
+
+In a coding playground, click **Run** to execute the editor source.
+
+## Python reports an error
+
+**Symptom:** the app displays a Python traceback or the console reports `python-error`.
+
+**Check:** read the first application frame in the traceback. The browser runtime uses Python Gradio 5.45.0, which can differ from a local environment. Replace APIs introduced after that version and test again in the rendered page.
+
+## A package cannot install
+
+**Symptom:** startup reports a missing distribution, incompatible wheel, or Micropip resolution error.
+
+**Check:** pin an exact version that supports Pyodide 0.27.3. Confirm the wheel is pure Python or built for the Pyodide WebAssembly environment. Confirm its host permits cross-origin downloads.
+
+Package imports and distribution names can differ. For example, the `transformers-js-py` package is imported as `transformers_js_py`.
+
+## The worker bootstrap changed
+
+**Symptom:** the app reports “The Gradio Lite worker bootstrap has changed” or “Failed to load the pinned Gradio Lite runtime.”
+
+**Check:** confirm the page uses the default jsDelivr asset base URL and runtime version 5.45.0. The compatibility bootstrap matches that exact archived worker. A custom `gradio.cdn` or `gradio.version` requires its own compatible runtime distribution.
+
+## Several apps consume too much memory
+
+**Symptom:** a page with several apps starts slowly or the browser discards a tab.
+
+**Check:** each app receives a dedicated worker by default. Reduce the number of apps or their package sets. `shared-worker: true` can reuse one Pyodide interpreter and installed package environment. Each app keeps a separate working directory and `__main__` module, while interpreter-global module state can interact. Browsers without `SharedWorker` fall back to dedicated workers.
+
+## The deployed page works locally but fails remotely
+
+**Symptom:** `quarto preview` works, while the public page has missing assets or runtime errors.
+
+**Check:** deploy the complete site output, including `site_libs/quarto-contrib/quarto-gradio-*`. Confirm the generated URLs respect the site's base path. Compare failed public requests with local requests and review hosting CSP headers.
+
+## Get more evidence
+
+When reporting a problem, include:
+
+- Quarto version
+- source and output format
+- extension version
+- Gradio Lite runtime URL
+- smallest source document that reproduces the issue
+- Quarto render output
+- visible Python traceback
+- browser console errors and failed request URLs
+
+Open an issue in the [quarto-gradio repository](https://github.com/peter-gy/quarto-gradio/issues/new/choose){target="_blank"} with secrets removed.

@@ -1,6 +1,9 @@
 ---
 title: "Chatbot"
+description: "Build a minimal synchronous Gradio ChatInterface."
 ---
+
+This coding playground returns a random yes or no response through `gr.ChatInterface`. Click **Run**, send a message, and inspect the two-value response function.
 
 ```{python}
 import random

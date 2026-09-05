@@ -1,0 +1,103 @@
+---
+title: How quarto-gradio Works
+description: "Understand how Python cells become browser-run Gradio apps and how one document can define several apps."
+---
+
+`quarto-gradio` has a render-time stage and a browser-time stage. Keeping them separate explains where code runs, when packages install, and how failures appear.
+
+## Render time
+
+[Quarto](https://quarto.org/) converts a source document into a [Pandoc document](https://pandoc.org/filters.html), a structured representation of headings, paragraphs, code cells, and other content. The `gradio` Lua filter walks that structure during `quarto render`.
+
+The filter recognizes Python code cells and collects their source in document order. A **launch cell** is a Python cell whose source contains `.launch(`. It closes the current source segment and creates one embedded app.
+
+```{mermaid}
+%%| fig-cap: "Each launch cell emits one app and resets the collected source."
+%%| fig-alt: "Python imports and function cells flow into the first launch cell and app. The source resets before a second source cell and launch cell create the second app."
+flowchart LR
+  subgraph first[First source segment]
+    direction TB
+    imports[Imports cell] --> functions[Functions cell]
+    functions --> launch1[First launch cell]
+    launch1 --> app1[Embedded app 1]
+  end
+  subgraph second[Second source segment]
+    direction TB
+    source2[Second app source] --> launch2[Second launch cell]
+    launch2 --> app2[Embedded app 2]
+  end
+  launch1 -. reset .-> source2
+```
+
+This model has three consequences:
+
+- Imports and helper functions can live in cells before the launch cell.
+- Every app after the first starts with a fresh source segment, so repeat the imports and definitions it needs.
+- A final Python cell with no `.launch()` call does not create an embedded app.
+
+Launch detection uses the literal `.launch(` spelling. Keep the call in its own executable Python cell and avoid inserting spaces between `launch` and `(`.
+
+## Generated HTML
+
+For every launch cell, the filter keeps the visible code cell and appends a generated fragment:
+
+```html
+<gradio-lite theme="dark">
+  <gradio-requirements>
+    package==version
+  </gradio-requirements>
+  ...Python source...
+</gradio-lite>
+```
+
+`<gradio-lite>` is a custom HTML element supplied by the archived `@gradio/lite` package. The filter escapes the Python source before inserting it into the page. The source remains readable in the delivered HTML.
+
+## Browser time
+
+When a reader opens the page:
+
+```{mermaid}
+%%| fig-cap: "Browser startup proceeds from assets to a mounted Gradio app."
+%%| fig-alt: "The page loads Gradio Lite assets, creates a web worker, loads Pyodide, installs compatibility pins and app requirements, executes Python, and mounts the app."
+flowchart LR
+  subgraph setup[Runtime setup]
+    direction TB
+    assets[Load Gradio Lite assets] --> worker[Create web worker]
+    worker --> pyodide[Load Pyodide]
+    pyodide --> packages[Install packages]
+  end
+  subgraph startup[App startup]
+    direction TB
+    python[Execute Python] --> mount[Mount Gradio app]
+  end
+  packages --> python
+```
+
+The default gives each app a dedicated worker. This isolates Python state but repeats startup and memory costs. `shared-worker: true` asks the archived runtime to reuse one Python environment across apps. See [Runtime and Trust](../runtime/) before enabling it.
+
+## Configuration flow
+
+Document metadata sets defaults for every app:
+
+```yaml
+gradio:
+  attributes:
+    theme: light
+    playground: true
+```
+
+A `#| gr-*` cell option on a launch cell overrides the matching attribute for that app:
+
+```python
+#| gr-theme: dark
+#| gr-playground: false
+demo.launch()
+```
+
+The `gr-` prefix is removed before the attribute reaches `<gradio-lite>`. App requirements, the runtime asset base URL, and the runtime version remain document-wide.
+
+## App presentations
+
+An **embedded app** shows the Gradio interface. A **coding playground** adds a Python editor and preview so readers can change and rerun the app source. Both presentations are interactive.
+
+The [coding playground guide](../../guide/enable-coding-playground/) covers the editor and its layout. The [configuration reference](../../reference/) records every documented setting and its scope.

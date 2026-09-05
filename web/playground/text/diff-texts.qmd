@@ -1,6 +1,9 @@
 ---
 title: "Diff Texts"
+description: "Compare two strings and display additions and removals with Gradio HighlightedText."
 ---
+
+This coding playground returns categorized text spans through `gr.HighlightedText`. Click **Run**, edit either text box, and submit to inspect the changed tokens.
 
 ```{python}
 from difflib import Differ

@@ -1,3 +1,101 @@
 ---
-title: "📚 Define Multiple Apps"
+title: Define Multiple Apps
+description: "Use launch cells to split one Quarto document into several isolated Gradio apps."
 ---
+
+Each launch cell closes one source segment and creates one embedded app. A launch cell contains the literal `.launch(` pattern. Two `.launch()` calls in one cell still create one embedded app. The filter clears the collected Python source after that cell, so the next app must define or import everything it uses.
+
+## Create two apps
+
+````{.markdown filename="two-apps.qmd"}
+---
+title: Two apps
+filters:
+  - gradio
+execute:
+  enabled: false
+---
+
+## Greeting
+
+```{python}
+import gradio as gr
+
+def greet(name):
+    return f"Hello {name}!"
+
+gr.Interface(greet, "textbox", "textbox").launch()
+```
+
+## Uppercase
+
+```{python}
+import gradio as gr
+
+def emphasize(text):
+    return text.upper()
+
+gr.Interface(emphasize, "textbox", "textbox").launch()
+```
+````
+
+Render the document and wait for both apps to start. Enter a name in the first app and text in the second. Each app responds independently because the default gives it a dedicated worker.
+
+### Live result
+
+The live page uses `shared-worker: true` so both examples can reuse one Pyodide interpreter and installed package environment. Each app still receives a separate app ID, working directory, and `__main__` module.
+
+```{python}
+#| gr-shared-worker: true
+import gradio as gr
+
+def greet(name):
+    return f"Hello {name}!"
+
+gr.Interface(greet, "textbox", "textbox").launch()
+```
+
+```{python}
+#| gr-shared-worker: true
+import gradio as gr
+
+def emphasize(text):
+    return text.upper()
+
+gr.Interface(emphasize, "textbox", "textbox").launch()
+```
+
+## Split one app across cells
+
+Python source can span several cells before the launch cell:
+
+````{.markdown filename="split-app.qmd"}
+```{python}
+import gradio as gr
+
+def greet(name):
+    return f"Hello {name}!"
+```
+
+```{python}
+demo = gr.Interface(greet, "textbox", "textbox")
+demo.launch()
+```
+````
+
+The first cell does not create an app. Its source becomes part of the app closed by the second cell.
+
+## Configure apps separately
+
+Put `#| gr-*` options on each launch cell:
+
+```python
+#| gr-theme: light
+#| gr-playground: true
+#| gr-layout: vertical
+demo.launch()
+```
+
+These options apply to that app and override matching values under document-wide `gradio.attributes`. App requirements and runtime URLs remain document-wide.
+
+The default worker isolation repeats Python startup for each app. Read [Runtime and Trust](../../concepts/runtime/) before using `shared-worker: true` to share one Python environment.

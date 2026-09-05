@@ -1,6 +1,9 @@
 ---
 title: "Chatbot with Artifacts"
+description: "Render a code artifact beside a Gradio chat response."
 ---
+
+This coding playground connects `gr.ChatInterface` to an additional `gr.Code` output. Click **Run**, then choose the Python or JavaScript example to display the corresponding code artifact.
 
 ```{python}
 import gradio as gr

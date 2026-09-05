@@ -1,25 +1,30 @@
 ---
-title: "💡 Use with Reveal.js"
-description: "This guide will demonstrate how you can embed a Gradio app into a Reveal.js presentation."
+title: Use Reveal.js
+description: "Place an embedded Gradio app on a Quarto Reveal.js slide and verify it during presentation navigation."
 ---
 
-## Minimal Example
+[Reveal.js](https://revealjs.com/) is the HTML presentation framework used by Quarto's `revealjs` output format. The `gradio` filter can place an embedded app or coding playground on a slide.
 
-Embedding Gradio Lite apps into Reveal.js presentations is extremely similar to embedding them into other HTML-based Quarto documents. The main difference is that the following Quarto options must be specified at the cell-level:
+## Create an app slide
 
-```python
-#| echo: true
-#| output-location: slide
-```
+Use `format: revealjs`, enable the filter, and keep Quarto-side Python execution disabled:
 
-````md
-{{< src-include reveal-gradio-lite-minimal.qmd >}}
+````{.markdown filename="slides.qmd"}
+{{< include reveal-gradio-lite-minimal.qmd >}}
 ````
 
-<iframe src="./reveal-gradio-lite-minimal.html" width="100%" height="500px"></iframe>
+The `output-location: slide` cell option puts the generated app output on a following slide. Navigate forward in the presentation and wait for the app to start.
 
-## Complex Example
+<iframe src="./reveal-gradio-lite-minimal.html" title="Minimal Reveal.js presentation with an embedded Gradio app" width="100%" height="500px"></iframe>
 
-Thanks to all the existing Quarto + Reveal.js features, the presentation can be customized to the n<sup>th</sup> degree, as described in the [Quarto Reveal.js documentation](https://quarto.org/docs/presentations/revealjs/){target=_blank}.
+## Combine slides and a playground
 
-<iframe src="./reveal-gradio-lite.html" width="100%" height="500px"></iframe>
+The full example uses Reveal.js layout options and a coding playground:
+
+<iframe src="./reveal-gradio-lite.html" title="Reveal.js presentation with a quarto-gradio coding playground" width="100%" height="500px"></iframe>
+
+Open the [complete presentation](reveal-gradio-lite.html){target="_blank"} to test keyboard navigation and the editor at full size.
+
+Keep app source and controls within the slide viewport. A vertical playground layout usually gives the editor and preview more usable width. Test the presentation at the projector resolution and on any remote-control browser you plan to use.
+
+See the [Quarto Reveal.js reference](https://quarto.org/docs/reference/formats/presentations/revealjs/){target="_blank"} for slide options and [Build a Coding Playground](../enable-coding-playground/) for editor configuration.

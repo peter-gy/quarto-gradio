@@ -1,5 +1,4 @@
-image: ../public/quarto-gradio-bg.png
-subtitle: Adapted from [Gradio Playground](https://gradio.app/playground/){target=_blank}.
+subtitle: Runnable examples for the frozen Gradio Lite 5.45.0 browser runtime.
 
 include-in-header:
   text: |
@@ -13,4 +12,4 @@ include-in-header:
 gradio:
   attributes:
     playground: true
-    layout: "horizontal"
+    layout: "vertical"

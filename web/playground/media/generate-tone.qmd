@@ -1,6 +1,9 @@
 ---
 title: "Generate Tone"
+description: "Generate an audio waveform from note, octave, and duration controls."
 ---
+
+This coding playground creates a NumPy waveform and returns its sample rate and samples to a Gradio audio component. Click **Run**, choose a note and duration, then submit to play the tone.
 
 ```{python}
 import numpy as np

@@ -1,0 +1,14 @@
+---
+title: Page Not Found
+description: "Find the current quarto-gradio documentation route."
+search: false
+toc: false
+---
+
+The requested page is not part of the current documentation site.
+
+- [Start with the Quickstart](guide/get-started/)
+- [Browse the Guides](guide/)
+- [Run an Example](playground/)
+- [Open the Configuration Reference](reference/)
+- [Search from the sidebar](index.qmd)
