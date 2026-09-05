@@ -1,0 +1,25 @@
+.github/workflows/ci.yml
+  s_a4d03878cafcf4::t_de2292da9ce068 1-14,16-17,19-22,24,26-46
+  s_a4d03878cafcf4::t_d9373f22666160 15,18,23,25
+.github/workflows/publish.yml
+  s_a4d03878cafcf4::t_35ff5e1694d8e3 35
+  s_a4d03878cafcf4::t_de2292da9ce068 28-29,37-45,48
+  s_a4d03878cafcf4::t_379dd685d903cd 31,56
+  s_a4d03878cafcf4::t_d9373f22666160 24,27,32,34,51,54,60
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.2",
+  "base_commit_sha": "36b792892751cc1e70661f3f797cd89edb31db8b",
+  "prompts": {},
+  "sessions": {
+    "s_a4d03878cafcf4": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a071bd-ac40-7c90-a2cc-2f20f07062c7",
+        "model": "gpt-5.6-sol"
+      },
+      "human_author": null
+    }
+  }
+}
