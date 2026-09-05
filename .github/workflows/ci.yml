@@ -1,0 +1,46 @@
+name: CI
+
+on:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v7.0.1
+
+      - name: Set up Quarto
+        uses: quarto-dev/quarto-actions/setup@v2.2.0
+        with:
+          version: "1.9.30"
+
+      - name: Set up uv
+        uses: astral-sh/setup-uv@v10.0.1
+        with:
+          version: "0.12.10"
+
+      - name: Install Python dependencies
+        run: uv sync --frozen
+
+      - name: Check Python formatting
+        run: uv run ruff format --check .
+
+      - name: Lint Python
+        run: uv run ruff check .
+
+      - name: Type-check with ty
+        run: uv run ty check
+
+      - name: Type-check with Pyrefly
+        run: uv run pyrefly check
+
+      - name: Run render-contract tests
+        run: uv run pytest
+
+      - name: Render documentation
+        run: uv run quarto render web
