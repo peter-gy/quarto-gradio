@@ -3,7 +3,6 @@ filters:
   - gradio
 
 gradio:
-  cdn: "https://peter-gy.github.io/static/npm/gradio-lite"
   attributes:
     playground: true
 ---

@@ -12,8 +12,8 @@ gradio:
     # @gradio/lite CDN base
     cdn: "https://cdn.jsdelivr.net/npm/\\@gradio/lite"
     
-    # @gradio/lite version, optional, defaults to null
-    version: "latest"                                
+    # @gradio/lite version, defaults to the final release
+    version: "5.45.0"
     
     # Deps to pass to <gradio-requirements/>
     requirements:                                    
@@ -24,8 +24,8 @@ gradio:
         # Optional: "dark" or "light", defaults to "dark"
         theme: dark          
         
-        # Optional: true or false, defaults to true
-        shared-worker: true
+        # Optional: true or false, defaults to false
+        shared-worker: false
         
         # Optional: true or false
         playground: false    
@@ -34,7 +34,7 @@ gradio:
         layout: horizontal   
 ```
 
-The extension is solely responsible for passing this metadata to appropriate HTML tags defined by [@gradio/lite](https://www.npmjs.com/package/@gradio/lite){target=_blank} package. For a more detailed explanation of metadata semantics, please refer to the [Gradio Lite documentation](https://www.gradio.app/guides/gradio-lite){target=_blank}.
+The extension passes this metadata to the HTML tags defined by the [archived `@gradio/lite` package](https://github.com/gradio-app/gradio-lite){target=_blank}. The default CDN and version resolve to `https://cdn.jsdelivr.net/npm/@gradio/lite@5.45.0`. Keep these defaults together to use the bundled Pyodide compatibility requirements. Set `version` or `cdn` when you control the corresponding archived runtime and dependency set. See the [Gradio Lite 4.44.1 guide](https://gradio.app/4.44.1/guides/gradio-lite){target=_blank} for the element and attribute contracts.
 
 ## Supported Python Requirement Formats
 
