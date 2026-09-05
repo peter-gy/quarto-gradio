@@ -21,8 +21,7 @@ end
 
 -- Main filter function to traverse the document AST
 function Pandoc(doc)
-  -- Ensure HTML dependencies are installed
-  html.ensure_html_deps()
+  local html_deps_installed = false
 
   -- Python source code accumulated from code blocks which will eventually be injected between <gradio-lite> tags
   local python_code = ""
@@ -41,6 +40,11 @@ function Pandoc(doc)
   function Div(el)
     if is_gradio_app_cell(el) then
       quarto.log.debug("Found Gradio app cell")
+
+      if not html_deps_installed then
+        html.ensure_html_deps()
+        html_deps_installed = true
+      end
 
       -- Create files array with a single app.py file for now
       -- TODO: Revisit use cases for multiple files via <gradio-file> tags
